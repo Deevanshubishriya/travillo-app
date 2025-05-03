@@ -4,58 +4,60 @@
 
 @layer base {
   :root {
-    --background: 36 43% 95%; /* Lighter Beige */
-    --foreground: 142 30% 15%; /* Darker Earthy Green */
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 142 30% 15%; /* Darker Earthy Green */
-    --popover: 0 0% 100%; /* White */
-    --popover-foreground: 142 30% 15%; /* Darker Earthy Green */
-    --primary: 142 30% 31%; /* Earthy green (#386641) */
-    --primary-foreground: 0 0% 98%; /* White-ish */
-    --secondary: 36 43% 77%; /* Warm beige (#E0CBA8) */
-    --secondary-foreground: 142 30% 31%; /* Earthy green */
-    --muted: 36 43% 85%; /* Slightly darker beige */
-    --muted-foreground: 142 30% 31%; /* Earthy green */
-    --accent: 28 80% 52%; /* Terracotta (#E67E22) */
+    /* Purple Light Theme */
+    --background: 270 60% 96%; /* Very Light Lavender */
+    --foreground: 270 40% 20%; /* Dark Purple */
+    --card: 270 60% 100%; /* White */
+    --card-foreground: 270 40% 20%; /* Dark Purple */
+    --popover: 270 60% 100%; /* White */
+    --popover-foreground: 270 40% 20%; /* Dark Purple */
+    --primary: 270 65% 55%; /* Medium Purple */
+    --primary-foreground: 270 60% 98%; /* Very Light Lavender/Almost White */
+    --secondary: 270 50% 90%; /* Light Lavender */
+    --secondary-foreground: 270 65% 55%; /* Medium Purple */
+    --muted: 270 40% 94%; /* Very Pale Lavender */
+    --muted-foreground: 270 40% 40%; /* Muted Purple */
+    --accent: 300 70% 60%; /* Magenta/Pinkish Purple */
     --accent-foreground: 0 0% 98%; /* White-ish */
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84.2% 60.2%; /* Red - Kept for destructive actions */
     --destructive-foreground: 0 0% 98%;
-    --border: 36 43% 80%; /* Beige border */
-    --input: 36 43% 80%; /* Beige input border */
-    --ring: 28 80% 52%; /* Terracotta */
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --border: 270 50% 85%; /* Light Lavender Border */
+    --input: 270 50% 85%; /* Light Lavender Input Border */
+    --ring: 270 65% 55%; /* Medium Purple Ring */
+    --chart-1: 270 70% 60%; /* Purple 1 */
+    --chart-2: 290 65% 55%; /* Purple 2 */
+    --chart-3: 250 60% 50%; /* Purple 3 */
+    --chart-4: 310 70% 65%; /* Pink/Purple */
+    --chart-5: 260 75% 70%; /* Lighter Purple */
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 142 15% 10%; /* Dark desaturated green */
-    --foreground: 36 43% 90%; /* Light Beige */
-    --card: 142 15% 15%; /* Slightly lighter dark green */
-    --card-foreground: 36 43% 90%; /* Light Beige */
-    --popover: 142 15% 10%;
-    --popover-foreground: 36 43% 90%;
-    --primary: 142 40% 60%; /* Lighter Earthy Green */
-    --primary-foreground: 142 30% 10%; /* Dark Green */
-    --secondary: 36 20% 30%; /* Dark Beige */
-    --secondary-foreground: 36 43% 90%; /* Light Beige */
-    --muted: 36 20% 25%; /* Darker Beige */
-    --muted-foreground: 36 43% 70%; /* Medium Light Beige */
-    --accent: 28 70% 60%; /* Lighter Terracotta */
+    /* Purple Dark Theme */
+    --background: 270 30% 10%; /* Very Dark Purple */
+    --foreground: 270 50% 90%; /* Light Lavender */
+    --card: 270 30% 15%; /* Dark Purple */
+    --card-foreground: 270 50% 90%; /* Light Lavender */
+    --popover: 270 30% 10%; /* Very Dark Purple */
+    --popover-foreground: 270 50% 90%; /* Light Lavender */
+    --primary: 270 60% 70%; /* Lighter Purple */
+    --primary-foreground: 270 30% 10%; /* Very Dark Purple */
+    --secondary: 270 25% 25%; /* Dark Muted Purple */
+    --secondary-foreground: 270 50% 90%; /* Light Lavender */
+    --muted: 270 25% 20%; /* Darker Muted Purple */
+    --muted-foreground: 270 40% 70%; /* Medium Light Lavender */
+    --accent: 300 65% 75%; /* Lighter Magenta/Pinkish Purple */
     --accent-foreground: 0 0% 10%; /* Near Black */
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 70% 50%; /* Slightly darker red for dark mode */
     --destructive-foreground: 0 0% 98%;
-    --border: 36 20% 35%; /* Dark Beige Border */
-    --input: 36 20% 35%;
-    --ring: 28 70% 60%; /* Lighter Terracotta ring */
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --border: 270 25% 30%; /* Dark Purple Border */
+    --input: 270 25% 30%;
+    --ring: 270 60% 70%; /* Lighter Purple Ring */
+    --chart-1: 270 60% 65%; /* Purple 1 */
+    --chart-2: 290 55% 60%; /* Purple 2 */
+    --chart-3: 250 50% 55%; /* Purple 3 */
+    --chart-4: 310 60% 70%; /* Pink/Purple */
+    --chart-5: 260 65% 75%; /* Lighter Purple */
   }
 }
 
