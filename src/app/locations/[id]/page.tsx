@@ -12,21 +12,21 @@ async function getLocationDetails(id: string) {
 
   // Use location names in picsum URLs for more relevance
   const locations = [
-    { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: 'https://picsum.photos/seed/khirsu/800/500', dataAiHint: 'himalayan village serene landscape', staticMapUrl: 'https://picsum.photos/seed/khirsu-map/600/400', mapAiHint: 'map Khirsu Uttarakhand' },
-    { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and the highest Shiva temple in the world. A moderate trek suitable for most fitness levels.', imageUrl: 'https://picsum.photos/seed/chopta/800/500', dataAiHint: 'mountain trek meadow temple', staticMapUrl: 'https://picsum.photos/seed/chopta-map/600/400', mapAiHint: 'map Chopta Tungnath Uttarakhand' },
-    { id: '3', name: 'Binsar Wildlife Sanctuary', description: 'Home to diverse flora and fauna, perfect for nature lovers exploring dense forests and spotting wildlife.', imageUrl: 'https://picsum.photos/seed/binsar/800/500', dataAiHint: 'wildlife sanctuary forest animals', staticMapUrl: 'https://picsum.photos/seed/binsar-map/600/400', mapAiHint: 'map Binsar Wildlife Sanctuary Uttarakhand' },
-    { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground, showcasing unique geological formations.', imageUrl: 'https://picsum.photos/seed/patal/800/500', dataAiHint: 'cave temple spiritual underground', staticMapUrl: 'https://picsum.photos/seed/patal-map/600/400', mapAiHint: 'map Patal Bhuvaneshwar Uttarakhand' },
-    { id: '5', name: 'Munsiyari', description: 'A picturesque hamlet offering stunning, clear views of the majestic Panchachuli peaks.', imageUrl: 'https://picsum.photos/seed/munsiyari/800/500', dataAiHint: 'mountain viewpoint snow peaks village', staticMapUrl: 'https://picsum.photos/seed/munsiyari-map/600/400', mapAiHint: 'map Munsiyari Uttarakhand' },
-    { id: '6', name: 'Dodital Lake Trek', description: 'A beautiful freshwater high-altitude lake surrounded by dense forests, requiring a moderate trek.', imageUrl: 'https://picsum.photos/seed/dodital/800/500', dataAiHint: 'mountain lake forest trek water', staticMapUrl: 'https://picsum.photos/seed/dodital-map/600/400', mapAiHint: 'map Dodital Lake Uttarakhand' },
-    { id: '7', name: 'Lansdowne', description: 'A quiet cantonment town known for its colonial charm and surrounding oak and pine forests. Visit the War Memorial and St. Mary\'s Church.', imageUrl: 'https://picsum.photos/seed/lansdowne/800/500', dataAiHint: 'hill station cantonment colonial architecture', staticMapUrl: 'https://picsum.photos/seed/lansdowne-map/600/400', mapAiHint: 'map Lansdowne Uttarakhand' },
-    { id: '8', name: 'Mukteshwar', description: 'Famous for the Mukteshwar Dham temple perched atop a cliff, offering stunning Himalayan panoramas and lush fruit orchards.', imageUrl: 'https://picsum.photos/seed/mukteshwar/800/500', dataAiHint: 'temple town cliffside orchards mountain view', staticMapUrl: 'https://picsum.photos/seed/mukteshwar-map/600/400', mapAiHint: 'map Mukteshwar Uttarakhand' },
-    { id: '9', name: 'Chakrata', description: 'A secluded hill station offering pristine natural beauty, Tiger Falls, and opportunities for trekking and exploration.', imageUrl: 'https://picsum.photos/seed/chakrata/800/500', dataAiHint: 'hill station waterfall adventure remote forest', staticMapUrl: 'https://picsum.photos/seed/chakrata-map/600/400', mapAiHint: 'map Chakrata Uttarakhand' },
-    { id: '10', name: 'Pauri', description: 'A district headquarters town offering panoramic views of snow-clad Himalayan peaks like Banderpunch, Swargarohini, and Gangotri group.', imageUrl: 'https://picsum.photos/seed/pauri/800/500', dataAiHint: 'mountain viewpoint valley town snow peaks', staticMapUrl: 'https://picsum.photos/seed/pauri-map/600/400', mapAiHint: 'map Pauri Garhwal Uttarakhand' },
+    { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: 'https://picsum.photos/seed/khirsu/800/500', dataAiHint: 'himalayan village serene landscape', coordinates: { lat: 30.1978, lng: 78.8798 } },
+    { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and the highest Shiva temple in the world. A moderate trek suitable for most fitness levels.', imageUrl: 'https://picsum.photos/seed/chopta/800/500', dataAiHint: 'mountain trek meadow temple', coordinates: { lat: 30.4851, lng: 79.3331 } },
+    { id: '3', name: 'Binsar Wildlife Sanctuary', description: 'Home to diverse flora and fauna, perfect for nature lovers exploring dense forests and spotting wildlife.', imageUrl: 'https://picsum.photos/seed/binsar/800/500', dataAiHint: 'wildlife sanctuary forest animals', coordinates: { lat: 29.6949, lng: 79.7534 } },
+    { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground, showcasing unique geological formations.', imageUrl: 'https://picsum.photos/seed/patal/800/500', dataAiHint: 'cave temple spiritual underground', coordinates: { lat: 29.7078, lng: 80.1050 } },
+    { id: '5', name: 'Munsiyari', description: 'A picturesque hamlet offering stunning, clear views of the majestic Panchachuli peaks.', imageUrl: 'https://picsum.photos/seed/munsiyari/800/500', dataAiHint: 'mountain viewpoint snow peaks village', coordinates: { lat: 30.0667, lng: 80.2333 } },
+    { id: '6', name: 'Dodital Lake Trek', description: 'A beautiful freshwater high-altitude lake surrounded by dense forests, requiring a moderate trek.', imageUrl: 'https://picsum.photos/seed/dodital/800/500', dataAiHint: 'mountain lake forest trek water', coordinates: { lat: 30.8373, lng: 78.4777 } },
+    { id: '7', name: 'Lansdowne', description: 'A quiet cantonment town known for its colonial charm and surrounding oak and pine forests. Visit the War Memorial and St. Mary\'s Church.', imageUrl: 'https://picsum.photos/seed/lansdowne/800/500', dataAiHint: 'hill station cantonment colonial architecture', coordinates: { lat: 29.8378, lng: 78.6865 } },
+    { id: '8', name: 'Mukteshwar', description: 'Famous for the Mukteshwar Dham temple perched atop a cliff, offering stunning Himalayan panoramas and lush fruit orchards.', imageUrl: 'https://picsum.photos/seed/mukteshwar/800/500', dataAiHint: 'temple town cliffside orchards mountain view', coordinates: { lat: 29.4722, lng: 79.6479 } },
+    { id: '9', name: 'Chakrata', description: 'A secluded hill station offering pristine natural beauty, Tiger Falls, and opportunities for trekking and exploration.', imageUrl: 'https://picsum.photos/seed/chakrata/800/500', dataAiHint: 'hill station waterfall adventure remote forest', coordinates: { lat: 30.7026, lng: 77.8694 } },
+    { id: '10', name: 'Pauri', description: 'A district headquarters town offering panoramic views of snow-clad Himalayan peaks like Banderpunch, Swargarohini, and Gangotri group.', imageUrl: 'https://picsum.photos/seed/pauri/800/500', dataAiHint: 'mountain viewpoint valley town snow peaks', coordinates: { lat: 30.1498, lng: 78.7748 } },
   ];
   const location = locations.find(loc => loc.id === id);
   if (!location) {
     // Handle not found case appropriately in a real app
-    return { id: 'not-found', name: 'Location Not Found', description: 'The requested location could not be found.', imageUrl: 'https://picsum.photos/800/500?grayscale', dataAiHint: 'placeholder image error', staticMapUrl: '', mapAiHint: '' };
+    return { id: 'not-found', name: 'Location Not Found', description: 'The requested location could not be found.', imageUrl: 'https://picsum.photos/800/500?grayscale', dataAiHint: 'placeholder image error', coordinates: null };
   }
   return location;
 }
@@ -47,6 +47,11 @@ export default async function LocationDetailPage({ params }: { params: { id: str
         </div>
     )
   }
+
+  // Generate a basic Google Maps embed URL if coordinates exist
+  const mapEmbedUrl = location.coordinates
+    ? `https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${location.coordinates.lat},${location.coordinates.lng}` // Replace YOUR_API_KEY
+    : '';
 
 
   return (
@@ -111,30 +116,33 @@ export default async function LocationDetailPage({ params }: { params: { id: str
               </CardTitle>
             </CardHeader>
             <CardContent>
-               <div className="relative aspect-square w-full overflow-hidden rounded-md border bg-muted">
-                {/* Use ClientImage for the map */}
-                <ClientImage
-                  src={location.staticMapUrl || `https://picsum.photos/seed/${params.id}-map/600/400?grayscale`} // Fallback to grayscale map placeholder
-                  alt={`Map showing ${location.name}`}
-                  layout="fill"
-                  objectFit="cover"
-                  quality={75}
-                  data-ai-hint={location.mapAiHint || `map ${location.name}`}
-                />
-                {/* In a real app, you would embed an interactive map here (e.g., Google Maps iframe or Leaflet) */}
-                {/* <iframe
-                  src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(location.name + ', Uttarakhand')}`} // Replace YOUR_API_KEY
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title={`Map of ${location.name}`}
-                  className="absolute inset-0"
-                ></iframe> */}
+               <div className="relative aspect-square w-full overflow-hidden rounded-md border bg-muted flex items-center justify-center">
+                 {/* Interactive Map Placeholder */}
+                 {mapEmbedUrl ? (
+                    <iframe
+                      src={mapEmbedUrl} // Replace YOUR_API_KEY in the URL generation above
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen={false}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title={`Map of ${location.name}`}
+                      className="absolute inset-0"
+                    ></iframe>
+                 ) : (
+                    <p className="text-center text-muted-foreground">Map coordinates not available for this location.</p>
+                 )}
                </div>
-                <p className="mt-2 text-xs text-muted-foreground text-center">Static map preview. Interactive map would be used in a live application.</p>
+               {mapEmbedUrl && (
+                 <p className="mt-2 text-xs text-muted-foreground text-center">
+                    Interactive map requires a Google Maps API key to function correctly.
+                    <br />
+                    <a href={`https://www.google.com/maps?q=${location.coordinates?.lat},${location.coordinates?.lng}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+                        Open in Google Maps
+                    </a>
+                 </p>
+               )}
             </CardContent>
           </Card>
         </div>

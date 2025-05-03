@@ -27,11 +27,15 @@ const nextConfig: NextConfig = {
         hostname: 'example.com',
         port: '',
         pathname: '/**',
+      },
+      { // Allow Google Maps Static API / Tiles
+        protocol: 'https',
+        hostname: 'maps.googleapis.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
 };
 
 export default nextConfig;
-
-   
