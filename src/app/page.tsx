@@ -4,6 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin, Car, Hotel, Camera } from 'lucide-react'; // Added Camera icon
 import { ClientImage } from '@/components/client-image'; // Using ClientImage for consistency
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"; // Import Carousel components
 
 export default function Home() {
   const galleryImages = [
@@ -79,31 +86,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Section */}
+      {/* Gallery Section - Replaced grid with Carousel */}
       <section id="gallery" className="py-16 md:py-24 bg-muted/50">
         <div className="container">
            <h2 className="mb-12 text-center text-3xl font-bold text-primary flex items-center justify-center gap-3">
              <Camera className="h-8 w-8 text-accent"/> Glimpses of Uttarakhand
           </h2>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            {galleryImages.map((image, index) => (
-              <div key={index} className="relative aspect-square overflow-hidden rounded-lg shadow-md transition-transform duration-300 hover:scale-105">
-                <ClientImage
-                  src={image.src}
-                  alt={image.alt}
-                  layout="fill"
-                  objectFit="cover"
-                  quality={75}
-                  data-ai-hint={image.hint}
-                  className="transition-opacity duration-300 hover:opacity-90"
-                />
-                 {/* Optional: Add overlay or caption on hover */}
-                 {/* <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
-                   <p className="text-white text-xs">{image.alt}</p>
-                 </div> */}
-              </div>
-            ))}
-          </div>
+           <Carousel
+             opts={{
+               align: "start",
+               loop: true, // Enable looping
+             }}
+             className="w-full max-w-4xl mx-auto" // Adjusted max-width and centering
+           >
+             <CarouselContent>
+               {galleryImages.map((image, index) => (
+                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3"> {/* Adjust basis for different screen sizes */}
+                   <div className="p-1"> {/* Add padding around item if needed */}
+                     <Card className="overflow-hidden shadow-md">
+                       <CardContent className="flex aspect-square items-center justify-center p-0"> {/* Use Card for structure and aspect ratio */}
+                         <div className="relative w-full h-full">
+                           <ClientImage
+                             src={image.src}
+                             alt={image.alt}
+                             layout="fill"
+                             objectFit="cover"
+                             quality={75}
+                             data-ai-hint={image.hint}
+                             className="transition-opacity duration-300"
+                           />
+                            {/* Optional: Add overlay or caption on hover */}
+                            {/* <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
+                              <p className="text-white text-xs">{image.alt}</p>
+                            </div> */}
+                         </div>
+                       </CardContent>
+                     </Card>
+                   </div>
+                 </CarouselItem>
+               ))}
+             </CarouselContent>
+             <CarouselPrevious className="left-[-50px] sm:left-[-60px]" /> {/* Adjust button position */}
+             <CarouselNext className="right-[-50px] sm:right-[-60px]" /> {/* Adjust button position */}
+           </Carousel>
+
            <div className="mt-12 text-center">
              <Link href="/locations">
               <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
