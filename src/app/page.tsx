@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Car, Hotel, Camera } from 'lucide-react'; // Added Camera icon
+import { MapPin, Car, Hotel, Camera, MessageSquare } from 'lucide-react'; // Added Camera and MessageSquare icons
 import { ClientImage } from '@/components/client-image'; // Using ClientImage for consistency
 import {
   Carousel,
@@ -11,6 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"; // Import Carousel components
+import { FeedbackForm } from '@/components/feedback-form'; // Import the FeedbackForm component
 
 export default function Home() {
   const galleryImages = [
@@ -86,7 +87,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Section - Replaced grid with Carousel */}
+      {/* Gallery Section */}
       <section id="gallery" className="py-16 md:py-24 bg-muted/50">
         <div className="container">
            <h2 className="mb-12 text-center text-3xl font-bold text-primary flex items-center justify-center gap-3">
@@ -115,10 +116,6 @@ export default function Home() {
                              data-ai-hint={image.hint}
                              className="transition-opacity duration-300"
                            />
-                            {/* Optional: Add overlay or caption on hover */}
-                            {/* <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
-                              <p className="text-white text-xs">{image.alt}</p>
-                            </div> */}
                          </div>
                        </CardContent>
                      </Card>
@@ -139,6 +136,20 @@ export default function Home() {
            </div>
         </div>
       </section>
+
+      {/* Feedback Section */}
+       <section id="feedback" className="py-16 md:py-24 bg-background">
+          <div className="container max-w-3xl mx-auto">
+             <h2 className="mb-4 text-center text-3xl font-bold text-primary flex items-center justify-center gap-3">
+                <MessageSquare className="h-8 w-8 text-accent"/> Share Your Feedback
+            </h2>
+             <p className="mb-10 text-center text-lg text-muted-foreground">
+               We'd love to hear about your experience or suggestions!
+            </p>
+             <FeedbackForm /> {/* Add the feedback form component here */}
+          </div>
+       </section>
+
 
       {/* Call to Action Section */}
        <section className="py-16 md:py-24 bg-secondary">
