@@ -2,31 +2,45 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Car, Hotel } from 'lucide-react'; // Nature-inspired icons
+import { MapPin, Car, Hotel, Camera } from 'lucide-react'; // Added Camera icon
+import { ClientImage } from '@/components/client-image'; // Using ClientImage for consistency
 
 export default function Home() {
+  const galleryImages = [
+    { src: 'https://picsum.photos/seed/himalayas/600/400', alt: 'Snow-capped Himalayan peaks', hint: 'himalayas snow mountains' },
+    { src: 'https://picsum.photos/seed/rishikesh/600/400', alt: 'Ganga river flowing through Rishikesh', hint: 'rishikesh ganges river city' },
+    { src: 'https://picsum.photos/seed/valleyofflowers/600/400', alt: 'Valley of Flowers national park', hint: 'valley flowers nature park' },
+    { src: 'https://picsum.photos/seed/auli/600/400', alt: 'Ski resort in Auli during winter', hint: 'auli ski resort snow winter' },
+    { src: 'https://picsum.photos/seed/nainital/600/400', alt: 'Naini Lake in Nainital with boats', hint: 'nainital lake boats hill station' },
+    { src: 'https://picsum.photos/seed/kedarnath/600/400', alt: 'Kedarnath Temple surrounded by mountains', hint: 'kedarnath temple spiritual mountains' },
+     { src: 'https://picsum.photos/seed/mussoorie/600/400', alt: 'View from Mussoorie hill station', hint: 'mussoorie hill station viewpoint' },
+     { src: 'https://picsum.photos/seed/uttarakhand_culture/600/400', alt: 'Traditional Uttarakhand folk dance', hint: 'uttarakhand culture folk dance' },
+  ];
+
   return (
     <>
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[400px] w-full">
-        <Image
-          src="https://picsum.photos/1920/1080"
+        {/* Use ClientImage for Hero as well */}
+        <ClientImage
+          src="https://picsum.photos/1920/1080?random=hero"
           alt="Scenic view of Uttarakhand mountains"
           layout="fill"
           objectFit="cover"
           quality={80}
           className="absolute inset-0 z-0 brightness-75"
-          data-ai-hint="uttarakhand mountains landscape"
+          data-ai-hint="uttarakhand mountains landscape panoramic"
+          priority // Prioritize loading hero image
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-6xl">
+          <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-6xl drop-shadow-md">
             Discover Uttarakhand's Hidden Gems
           </h1>
-          <p className="mb-8 max-w-2xl text-lg md:text-xl">
+          <p className="mb-8 max-w-2xl text-lg md:text-xl drop-shadow">
             Explore serene villages, unexplored treks, and breathtaking viewpoints beyond the usual tourist trails.
           </p>
           <Link href="/locations">
-            <Button size="lg" variant="default" className="bg-accent text-accent-foreground hover:bg-accent/90">
+            <Button size="lg" variant="default" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg">
               Start Exploring
             </Button>
           </Link>
@@ -65,6 +79,41 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <section id="gallery" className="py-16 md:py-24 bg-muted/50">
+        <div className="container">
+           <h2 className="mb-12 text-center text-3xl font-bold text-primary flex items-center justify-center gap-3">
+             <Camera className="h-8 w-8 text-accent"/> Glimpses of Uttarakhand
+          </h2>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            {galleryImages.map((image, index) => (
+              <div key={index} className="relative aspect-square overflow-hidden rounded-lg shadow-md transition-transform duration-300 hover:scale-105">
+                <ClientImage
+                  src={image.src}
+                  alt={image.alt}
+                  layout="fill"
+                  objectFit="cover"
+                  quality={75}
+                  data-ai-hint={image.hint}
+                  className="transition-opacity duration-300 hover:opacity-90"
+                />
+                 {/* Optional: Add overlay or caption on hover */}
+                 {/* <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
+                   <p className="text-white text-xs">{image.alt}</p>
+                 </div> */}
+              </div>
+            ))}
+          </div>
+           <div className="mt-12 text-center">
+             <Link href="/locations">
+              <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                Explore More Locations
+              </Button>
+            </Link>
+           </div>
+        </div>
+      </section>
+
       {/* Call to Action Section */}
        <section className="py-16 md:py-24 bg-secondary">
         <div className="container text-center">
@@ -75,7 +124,7 @@ export default function Home() {
             Start planning your unique Uttarakhand adventure today. Explore locations, book your ride, and find the perfect stay.
           </p>
           <Link href="/locations">
-             <Button size="lg" variant="default" className="bg-accent text-accent-foreground hover:bg-accent/90">
+             <Button size="lg" variant="default" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg">
               Explore Now
             </Button>
           </Link>
@@ -95,17 +144,19 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon, title, description, link, linkText }: FeatureCardProps) {
   return (
-    <Card className="flex flex-col items-center text-center shadow-lg transition-transform duration-300 hover:scale-105">
-      <CardHeader>
-        <div className="mb-4 rounded-full bg-secondary p-4">
-          {icon}
+    <Card className="flex flex-col items-center text-center shadow-lg transition-transform duration-300 hover:scale-105 bg-card">
+      <CardHeader className="pt-6">
+        <div className="mb-4 flex justify-center">
+          <div className="rounded-full bg-secondary p-4 inline-block">
+             {icon}
+          </div>
         </div>
         <CardTitle className="text-xl text-primary">{title}</CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-grow flex-col justify-between">
+      <CardContent className="flex flex-grow flex-col justify-between px-6 pb-6">
         <p className="mb-6 text-muted-foreground">{description}</p>
-        <Link href={link}>
-          <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+        <Link href={link} className="mt-auto">
+          <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground w-full sm:w-auto">
             {linkText}
           </Button>
         </Link>
@@ -113,4 +164,3 @@ function FeatureCard({ icon, title, description, link, linkText }: FeatureCardPr
     </Card>
   );
 }
-
