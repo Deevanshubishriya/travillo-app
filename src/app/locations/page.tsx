@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { MapPin, TreePine, Waves, MountainSnow, Landmark } from 'lucide-react'; // Replaced Cave with Landmark
+import { MapPin, TreePine, Waves, MountainSnow, Landmark, Building2, Home } from 'lucide-react'; // Added Building2, Home
 import { ClientImage } from '@/components/client-image'; // Import the client component
 
 // Mock data for hidden locations - replace with API data later
@@ -14,22 +14,31 @@ const hiddenLocations = [
   { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground.', imageUrl: 'https://picsum.photos/seed/patal/400/300', category: 'spiritual', dataAiHint: 'cave temple spiritual' }, // Use Landmark icon
   { id: '5', name: 'Munsiyari', description: 'A picturesque hamlet offering stunning views of the Panchachuli peaks.', imageUrl: 'https://picsum.photos/seed/munsiyari/400/300', category: 'viewpoint', dataAiHint: 'mountain viewpoint snow peaks' }, // Use MountainSnow icon
   { id: '6', name: 'Dodital Lake Trek', description: 'A beautiful freshwater lake surrounded by dense forests.', imageUrl: 'https://picsum.photos/seed/dodital/400/300', category: 'trek', dataAiHint: 'mountain lake forest trek' },
+  { id: '7', name: 'Lansdowne', description: 'A quiet cantonment town surrounded by thick oak and blue pine forests.', imageUrl: 'https://picsum.photos/seed/lansdowne/400/300', category: 'cantonment', dataAiHint: 'hill station cantonment colonial' }, // Use Building2 icon
+  { id: '8', name: 'Mukteshwar', description: 'Known for its cliff-top temple, fruit orchards, and panoramic Himalayan views.', imageUrl: 'https://picsum.photos/seed/mukteshwar/400/300', category: 'temple town', dataAiHint: 'temple town orchards mountain view' }, // Use Landmark icon
+  { id: '9', name: 'Chakrata', description: 'A secluded hill station with stunning waterfalls and opportunities for adventure.', imageUrl: 'https://picsum.photos/seed/chakrata/400/300', category: 'hill station', dataAiHint: 'hill station waterfall adventure remote' }, // Use MountainSnow icon
+  { id: '10', name: 'Pauri', description: 'Offers breathtaking views of snow-capped peaks and lush green valleys.', imageUrl: 'https://picsum.photos/seed/pauri/400/300', category: 'viewpoint', dataAiHint: 'mountain viewpoint valley town' }, // Use MountainSnow icon
+
 ];
 
 // Function to determine icon based on category (can be expanded)
 const getCategoryIcon = (category: string) => {
-  switch (category) {
+  switch (category.toLowerCase()) {
     case 'village':
-      return <MapPin className="h-5 w-5 mr-1 text-accent" />;
+      return <Home className="h-5 w-5 mr-1 text-accent" />; // Changed to Home
     case 'trek':
     case 'nature':
       return <TreePine className="h-5 w-5 mr-1 text-accent" />;
     case 'spiritual':
+    case 'temple town':
       return <Landmark className="h-5 w-5 mr-1 text-accent" />; // Updated Icon to Landmark
     case 'viewpoint':
+    case 'hill station':
        return <MountainSnow className="h-5 w-5 mr-1 text-accent" />; // Updated Icon
     case 'lake':
       return <Waves className="h-5 w-5 mr-1 text-accent" />;
+     case 'cantonment':
+       return <Building2 className="h-5 w-5 mr-1 text-accent" />; // Added Cantonment icon
     default:
       return <MapPin className="h-5 w-5 mr-1 text-accent" />;
   }
@@ -44,7 +53,7 @@ export default function LocationsPage() {
         Discover the lesser-known treasures of Uttarakhand. From tranquil villages to challenging treks, find your next adventure.
       </p>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> {/* Added xl:grid-cols-4 for better layout */}
         {hiddenLocations.map((location) => (
           <Card key={location.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
             <CardHeader className="p-0">
@@ -82,3 +91,4 @@ export default function LocationsPage() {
     </div>
   );
 }
+
