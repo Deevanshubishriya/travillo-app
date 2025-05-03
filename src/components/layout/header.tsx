@@ -1,16 +1,12 @@
-
 'use client';
 
 import Link from 'next/link';
 import { Mountain } from 'lucide-react'; // Using Mountain as a placeholder logo icon
 import { Button } from '@/components/ui/button';
 import { NavLink } from './nav-link'; // Create this component for active state
-// Removed Firebase auth imports and hooks
+import { ThemeToggleButton } from '@/components/theme-toggle-button'; // Import the theme toggle button
 
 export function Header() {
-  // Removed user state, loading state, toast, and router hooks
-  // Removed useEffect for auth state listener
-  // Removed handleLogout function
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -23,12 +19,13 @@ export function Header() {
         </Link>
         <nav className="flex flex-1 items-center space-x-4 lg:space-x-6">
           <NavLink href="/">Home</NavLink>
-          {/* Links are now always visible */}
           <NavLink href="/locations">Locations</NavLink>
           <NavLink href="/rentals">Rentals</NavLink>
           <NavLink href="/hotels">Hotels</NavLink>
         </nav>
-        {/* Removed Authentication Buttons section */}
+         <div className="ml-auto flex items-center space-x-4">
+           <ThemeToggleButton />
+         </div>
       </div>
     </header>
   );
