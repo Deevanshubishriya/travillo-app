@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { MapPin, TreePine, Waves, MountainSnow, Landmark, Building2, Home } from 'lucide-react'; // Added Building2, Home
 import { ClientImage } from '@/components/client-image';
-import AuthGuard from '@/components/auth-guard'; // Import the AuthGuard
+// Removed AuthGuard import
 
 // Mock data for hidden locations - replace with API data later
 // Use location names in picsum URLs for more relevance
@@ -48,49 +48,48 @@ const getCategoryIcon = (category: string) => {
 
 export default function LocationsPage() {
   return (
-     <AuthGuard> {/* Wrap content with AuthGuard */}
-       <div className="container py-12 md:py-16">
-         <h1 className="mb-8 text-center text-4xl font-bold text-primary">Explore Hidden Locations</h1>
-         <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
-           Discover the lesser-known treasures of Uttarakhand. From tranquil villages to challenging treks, find your next adventure.
-         </p>
+     // Removed AuthGuard wrapper
+     <div className="container py-12 md:py-16">
+       <h1 className="mb-8 text-center text-4xl font-bold text-primary">Explore Hidden Locations</h1>
+       <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
+         Discover the lesser-known treasures of Uttarakhand. From tranquil villages to challenging treks, find your next adventure.
+       </p>
 
-         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> {/* Added xl:grid-cols-4 for better layout */}
-           {hiddenLocations.map((location) => (
-             <Card key={location.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
-               <CardHeader className="p-0">
-                 <div className="relative h-48 w-full">
-                   {/* Use ClientImage wrapper */}
-                   <ClientImage
-                     src={location.imageUrl}
-                     alt={location.name}
-                     layout="fill"
-                     objectFit="cover"
-                     data-ai-hint={location.dataAiHint}
-                     // Fallback handled within ClientImage
-                   />
-                 </div>
-               </CardHeader>
-               <CardContent className="p-4">
-                 <CardTitle className="mb-2 text-xl text-primary flex items-center">
-                    {getCategoryIcon(location.category)} {location.name}
-                 </CardTitle>
-                 <CardDescription className="text-muted-foreground">
-                   {location.description}
-                 </CardDescription>
-               </CardContent>
-               <CardFooter className="p-4 pt-0">
-                 {/* Link to a potential location detail page */}
-                 <Link href={`/locations/${location.id}`} passHref>
-                    <Button variant="outline" size="sm" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
-                     Learn More
-                   </Button>
-                 </Link>
-               </CardFooter>
-             </Card>
-           ))}
-         </div>
+       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> {/* Added xl:grid-cols-4 for better layout */}
+         {hiddenLocations.map((location) => (
+           <Card key={location.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
+             <CardHeader className="p-0">
+               <div className="relative h-48 w-full">
+                 {/* Use ClientImage wrapper */}
+                 <ClientImage
+                   src={location.imageUrl}
+                   alt={location.name}
+                   layout="fill"
+                   objectFit="cover"
+                   data-ai-hint={location.dataAiHint}
+                   // Fallback handled within ClientImage
+                 />
+               </div>
+             </CardHeader>
+             <CardContent className="p-4">
+               <CardTitle className="mb-2 text-xl text-primary flex items-center">
+                  {getCategoryIcon(location.category)} {location.name}
+               </CardTitle>
+               <CardDescription className="text-muted-foreground">
+                 {location.description}
+               </CardDescription>
+             </CardContent>
+             <CardFooter className="p-4 pt-0">
+               {/* Link to a potential location detail page */}
+               <Link href={`/locations/${location.id}`} passHref>
+                  <Button variant="outline" size="sm" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
+                   Learn More
+                 </Button>
+               </Link>
+             </CardFooter>
+           </Card>
+         ))}
        </div>
-     </AuthGuard>
+     </div>
   );
 }

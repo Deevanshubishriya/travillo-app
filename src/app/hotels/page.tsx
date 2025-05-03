@@ -12,7 +12,7 @@ import { Hotel as HotelIcon, Search, Loader2, Star, ExternalLink } from 'lucide-
 import { ClientImage } from '@/components/client-image'; // Import the client component
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
-import AuthGuard from '@/components/auth-guard'; // Import the AuthGuard
+// Removed AuthGuard import
 
 export default function HotelsPage() {
   const [locationQuery, setLocationQuery] = useState('');
@@ -111,102 +111,101 @@ export default function HotelsPage() {
 
 
   return (
-    <AuthGuard> {/* Wrap content with AuthGuard */}
-      <div className="container py-12 md:py-16">
-        <h1 className="mb-8 text-center text-4xl font-bold text-primary">Find Hotels Nearby</h1>
-        <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
-          Enter a location (or coordinates like "lat, lng") to discover hotels near hidden gems and get suggestions for booking sites.
-        </p>
+    // Removed AuthGuard wrapper
+    <div className="container py-12 md:py-16">
+      <h1 className="mb-8 text-center text-4xl font-bold text-primary">Find Hotels Nearby</h1>
+      <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
+        Enter a location (or coordinates like "lat, lng") to discover hotels near hidden gems and get suggestions for booking sites.
+      </p>
 
-        {/* Search Form Card */}
-        <Card className="mb-12 shadow-md">
-          <CardHeader>
-            <CardTitle className="text-2xl text-primary">Search Hotels</CardTitle>
-            <CardDescription>Enter a location to find nearby accommodation.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 items-end">
-              <div className="space-y-1 flex-grow">
-                <Label htmlFor="locationQuery">Location / Coordinates</Label>
-                <Input
-                  id="locationQuery"
-                  placeholder="e.g., Khirsu Village or 29.38, 79.45"
-                  value={locationQuery}
-                  onChange={(e) => setLocationQuery(e.target.value)}
-                  required
-                />
-              </div>
-              <Button type="submit" disabled={isLoading} className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
-                {isLoading ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                ) : (
-                  <Search className="mr-2 h-4 w-4" />
-                )}
-                Search Hotels
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-
-        {/* Results Section */}
-        <div>
-          <h2 className="mb-6 text-2xl font-semibold text-primary">Nearby Hotels</h2>
-           {isLoading ? (
-             <div className="flex justify-center items-center p-8">
-               <Loader2 className="h-8 w-8 animate-spin text-primary" />
-               <span className="ml-3 text-muted-foreground">Searching for hotels...</span>
-             </div>
-          ) : searchAttempted && nearbyHotels.length === 0 ? (
-             <p className="text-center text-muted-foreground">No hotels found for this location. Please refine your search.</p>
-          ) : nearbyHotels.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {nearbyHotels.map((hotel) => (
-                <Card key={hotel.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] flex flex-col">
-                   <CardHeader className="p-0">
-                     <div className="relative h-48 w-full bg-muted">
-                       {/* Use ClientImage wrapper */}
-                       <ClientImage
-                         src={hotel.imageUrl || `https://picsum.photos/400/300?random=${hotel.id}`} // Use ID for slightly more consistent placeholder
-                         alt={hotel.name}
-                         layout="fill"
-                         objectFit="cover"
-                         data-ai-hint={hotel.dataAiHint || 'hotel building exterior'}
-                         // Fallback handled within ClientImage
-                       />
-                     </div>
-                   </CardHeader>
-                  <CardContent className="p-4 flex-grow">
-                     <CardTitle className="mb-2 text-xl text-primary flex items-center">
-                      <HotelIcon className="h-5 w-5 mr-2 text-accent"/> {hotel.name}
-                     </CardTitle>
-                     {renderStars(hotel.rating)}
-                     {hotel.suggestedBookingSite && hotel.bookingSearchUrl && (
-                      <p className="text-xs text-muted-foreground mt-2">
-                        Try searching on: {hotel.suggestedBookingSite}
-                      </p>
-                     )}
-                  </CardContent>
-                  <CardFooter className="p-4 pt-0">
-                    {hotel.bookingSearchUrl ? (
-                      <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                        <Link href={hotel.bookingSearchUrl} target="_blank" rel="noopener noreferrer">
-                           Search on {hotel.suggestedBookingSite || 'Booking Site'} <ExternalLink className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                    ) : (
-                       <Button disabled className="w-full bg-muted text-muted-foreground cursor-not-allowed">
-                          Booking Info Unavailable
-                       </Button>
-                    )}
-                  </CardFooter>
-                </Card>
-              ))}
+      {/* Search Form Card */}
+      <Card className="mb-12 shadow-md">
+        <CardHeader>
+          <CardTitle className="text-2xl text-primary">Search Hotels</CardTitle>
+          <CardDescription>Enter a location to find nearby accommodation.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 items-end">
+            <div className="space-y-1 flex-grow">
+              <Label htmlFor="locationQuery">Location / Coordinates</Label>
+              <Input
+                id="locationQuery"
+                placeholder="e.g., Khirsu Village or 29.38, 79.45"
+                value={locationQuery}
+                onChange={(e) => setLocationQuery(e.target.value)}
+                required
+              />
             </div>
-          ) : (
-             searchAttempted ? null : <p className="text-center text-muted-foreground">Enter a location above to find nearby hotels.</p> // Initial state
-          )}
-        </div>
+            <Button type="submit" disabled={isLoading} className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
+              {isLoading ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Search className="mr-2 h-4 w-4" />
+              )}
+              Search Hotels
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+
+      {/* Results Section */}
+      <div>
+        <h2 className="mb-6 text-2xl font-semibold text-primary">Nearby Hotels</h2>
+         {isLoading ? (
+           <div className="flex justify-center items-center p-8">
+             <Loader2 className="h-8 w-8 animate-spin text-primary" />
+             <span className="ml-3 text-muted-foreground">Searching for hotels...</span>
+           </div>
+        ) : searchAttempted && nearbyHotels.length === 0 ? (
+           <p className="text-center text-muted-foreground">No hotels found for this location. Please refine your search.</p>
+        ) : nearbyHotels.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {nearbyHotels.map((hotel) => (
+              <Card key={hotel.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] flex flex-col">
+                 <CardHeader className="p-0">
+                   <div className="relative h-48 w-full bg-muted">
+                     {/* Use ClientImage wrapper */}
+                     <ClientImage
+                       src={hotel.imageUrl || `https://picsum.photos/400/300?random=${hotel.id}`} // Use ID for slightly more consistent placeholder
+                       alt={hotel.name}
+                       layout="fill"
+                       objectFit="cover"
+                       data-ai-hint={hotel.dataAiHint || 'hotel building exterior'}
+                       // Fallback handled within ClientImage
+                     />
+                   </div>
+                 </CardHeader>
+                <CardContent className="p-4 flex-grow">
+                   <CardTitle className="mb-2 text-xl text-primary flex items-center">
+                    <HotelIcon className="h-5 w-5 mr-2 text-accent"/> {hotel.name}
+                   </CardTitle>
+                   {renderStars(hotel.rating)}
+                   {hotel.suggestedBookingSite && hotel.bookingSearchUrl && (
+                    <p className="text-xs text-muted-foreground mt-2">
+                      Try searching on: {hotel.suggestedBookingSite}
+                    </p>
+                   )}
+                </CardContent>
+                <CardFooter className="p-4 pt-0">
+                  {hotel.bookingSearchUrl ? (
+                    <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                      <Link href={hotel.bookingSearchUrl} target="_blank" rel="noopener noreferrer">
+                         Search on {hotel.suggestedBookingSite || 'Booking Site'} <ExternalLink className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  ) : (
+                     <Button disabled className="w-full bg-muted text-muted-foreground cursor-not-allowed">
+                        Booking Info Unavailable
+                     </Button>
+                  )}
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        ) : (
+           searchAttempted ? null : <p className="text-center text-muted-foreground">Enter a location above to find nearby hotels.</p> // Initial state
+        )}
       </div>
-    </AuthGuard>
+    </div>
   );
 }
