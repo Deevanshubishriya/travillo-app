@@ -7,10 +7,15 @@ import { ArrowLeft, MapPin, Car, Hotel } from 'lucide-react';
 async function getLocationDetails(id: string) {
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 100)); // Simulate network delay
+
+  // Use location names in picsum URLs for more relevance
   const locations = [
-    { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: 'https://picsum.photos/800/500?random=1', dataAiHint: 'himalayan village serene landscape' },
-    { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and the highest Shiva temple in the world. A moderate trek suitable for most fitness levels.', imageUrl: 'https://picsum.photos/800/500?random=2', dataAiHint: 'mountain trek meadow temple' },
-    // Add other locations if needed for testing
+    { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: 'https://picsum.photos/seed/khirsu/800/500', dataAiHint: 'himalayan village serene landscape' },
+    { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and the highest Shiva temple in the world. A moderate trek suitable for most fitness levels.', imageUrl: 'https://picsum.photos/seed/chopta/800/500', dataAiHint: 'mountain trek meadow temple' },
+    { id: '3', name: 'Binsar Wildlife Sanctuary', description: 'Home to diverse flora and fauna, perfect for nature lovers exploring dense forests and spotting wildlife.', imageUrl: 'https://picsum.photos/seed/binsar/800/500', dataAiHint: 'wildlife sanctuary forest animals' },
+    { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground, showcasing unique geological formations.', imageUrl: 'https://picsum.photos/seed/patal/800/500', dataAiHint: 'cave temple spiritual underground' },
+    { id: '5', name: 'Munsiyari', description: 'A picturesque hamlet offering stunning, clear views of the majestic Panchachuli peaks.', imageUrl: 'https://picsum.photos/seed/munsiyari/800/500', dataAiHint: 'mountain viewpoint snow peaks village' },
+    { id: '6', name: 'Dodital Lake Trek', description: 'A beautiful freshwater high-altitude lake surrounded by dense forests, requiring a moderate trek.', imageUrl: 'https://picsum.photos/seed/dodital/800/500', dataAiHint: 'mountain lake forest trek water' },
   ];
   const location = locations.find(loc => loc.id === id);
   if (!location) {
@@ -58,6 +63,7 @@ export default async function LocationDetailPage({ params }: { params: { id: str
             objectFit="cover"
             quality={85}
             data-ai-hint={location.dataAiHint}
+             onError={(e) => { e.currentTarget.src = 'https://picsum.photos/800/500?grayscale&blur=2';}} // Fallback image
           />
         </div>
 
@@ -101,7 +107,8 @@ export default async function LocationDetailPage({ params }: { params: { id: str
 // Optional: Generate static paths if you know all location IDs beforehand
 // export async function generateStaticParams() {
 //   // Fetch all location IDs from your data source
-//   const locations = await getAllLocationIds(); // Replace with your data fetching logic
+//   // const locations = await getAllLocationIds(); // Replace with your data fetching logic
+//   const locations = [ { id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }, { id: '5' }, { id: '6' } ]; // Example static IDs
 //   return locations.map((location) => ({
 //     id: location.id,
 //   }));

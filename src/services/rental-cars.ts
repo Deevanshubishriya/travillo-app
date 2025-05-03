@@ -65,35 +65,35 @@ export async function findAvailableVehicles(criteria: VehicleSearchCriteria): Pr
       id: '1',
       model: 'Maruti Suzuki Swift',
       dailyRate: 2200,
-      imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`, // Random placeholder
+      imageUrl: `https://picsum.photos/seed/swift/400/300`, // Use model name as seed
       dataAiHint: 'compact hatchback car silver'
     },
     {
       id: '2',
       model: 'Hyundai Creta',
       dailyRate: 3000,
-       imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`,
+       imageUrl: `https://picsum.photos/seed/creta/400/300`,
       dataAiHint: 'suv compact white'
     },
     {
       id: '3',
       model: 'Mahindra Thar',
       dailyRate: 3800,
-      imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`,
+      imageUrl: `https://picsum.photos/seed/thar/400/300`,
       dataAiHint: 'offroad suv jeep black'
     },
     {
       id: '4',
       model: 'Toyota Innova Crysta',
       dailyRate: 4500,
-       imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`,
+       imageUrl: `https://picsum.photos/seed/innova/400/300`,
       dataAiHint: 'mpv family car grey'
     },
      {
       id: '5',
       model: 'Tata Nexon EV',
       dailyRate: 3200,
-      imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`,
+      imageUrl: `https://picsum.photos/seed/nexon/400/300`,
       dataAiHint: 'electric suv blue compact'
     },
   ];
@@ -112,5 +112,7 @@ export async function findAvailableVehicles(criteria: VehicleSearchCriteria): Pr
 
 
   // Default: return a subset for variety, simulating availability
-  return allVehicles.slice(0, Math.floor(Math.random() * (allVehicles.length -1)) + 2); // Return 2 to all vehicles
+  // Sort randomly and take a slice
+  const shuffled = allVehicles.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, Math.floor(Math.random() * (allVehicles.length - 1)) + 2); // Return 2 to all vehicles
 }

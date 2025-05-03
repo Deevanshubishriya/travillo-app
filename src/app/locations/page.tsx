@@ -2,28 +2,31 @@ import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { MapPin, TreePine, Waves } from 'lucide-react'; // Example nature icons
+import { MapPin, TreePine, Waves, MountainSnow, Cave } from 'lucide-react'; // Added MountainSnow and Cave
 
 // Mock data for hidden locations - replace with API data later
+// Use location names in picsum URLs for more relevance
 const hiddenLocations = [
-  { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas.', imageUrl: 'https://picsum.photos/400/300?random=1', category: 'village', icon: <MapPin className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'himalayan village serene' },
-  { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and ancient temples.', imageUrl: 'https://picsum.photos/400/300?random=2', category: 'trek', icon: <TreePine className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'mountain trek meadow' },
-  { id: '3', name: 'Binsar Wildlife Sanctuary', description: 'Home to diverse flora and fauna, perfect for nature lovers.', imageUrl: 'https://picsum.photos/400/300?random=3', category: 'nature', icon: <TreePine className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'wildlife sanctuary forest' },
-  { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground.', imageUrl: 'https://picsum.photos/400/300?random=4', category: 'spiritual', icon: <MapPin className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'cave temple spiritual' },
-  { id: '5', name: 'Munsiyari', description: 'A picturesque hamlet offering stunning views of the Panchachuli peaks.', imageUrl: 'https://picsum.photos/400/300?random=5', category: 'viewpoint', icon: <MapPin className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'mountain viewpoint snow peaks' },
-  { id: '6', name: 'Dodital Lake Trek', description: 'A beautiful freshwater lake surrounded by dense forests.', imageUrl: 'https://picsum.photos/400/300?random=6', category: 'trek', icon: <Waves className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'mountain lake forest trek' },
+  { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas.', imageUrl: 'https://picsum.photos/seed/khirsu/400/300', category: 'village', icon: <MapPin className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'himalayan village serene' },
+  { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and ancient temples.', imageUrl: 'https://picsum.photos/seed/chopta/400/300', category: 'trek', icon: <TreePine className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'mountain trek meadow' },
+  { id: '3', name: 'Binsar Wildlife Sanctuary', description: 'Home to diverse flora and fauna, perfect for nature lovers.', imageUrl: 'https://picsum.photos/seed/binsar/400/300', category: 'nature', icon: <TreePine className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'wildlife sanctuary forest' },
+  { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground.', imageUrl: 'https://picsum.photos/seed/patal/400/300', category: 'spiritual', icon: <Cave className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'cave temple spiritual' }, // Use Cave icon
+  { id: '5', name: 'Munsiyari', description: 'A picturesque hamlet offering stunning views of the Panchachuli peaks.', imageUrl: 'https://picsum.photos/seed/munsiyari/400/300', category: 'viewpoint', icon: <MountainSnow className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'mountain viewpoint snow peaks' }, // Use MountainSnow icon
+  { id: '6', name: 'Dodital Lake Trek', description: 'A beautiful freshwater lake surrounded by dense forests.', imageUrl: 'https://picsum.photos/seed/dodital/400/300', category: 'trek', icon: <Waves className="h-5 w-5 mr-1 text-accent"/>, dataAiHint: 'mountain lake forest trek' },
 ];
 
 // Function to determine icon based on category (can be expanded)
 const getCategoryIcon = (category: string) => {
   switch (category) {
     case 'village':
-    case 'viewpoint':
-    case 'spiritual':
       return <MapPin className="h-5 w-5 mr-1 text-accent" />;
     case 'trek':
     case 'nature':
       return <TreePine className="h-5 w-5 mr-1 text-accent" />;
+    case 'spiritual':
+      return <Cave className="h-5 w-5 mr-1 text-accent" />; // Updated Icon
+    case 'viewpoint':
+       return <MountainSnow className="h-5 w-5 mr-1 text-accent" />; // Updated Icon
     case 'lake':
       return <Waves className="h-5 w-5 mr-1 text-accent" />;
     default:
@@ -51,6 +54,7 @@ export default function LocationsPage() {
                   layout="fill"
                   objectFit="cover"
                   data-ai-hint={location.dataAiHint}
+                   onError={(e) => { e.currentTarget.src = 'https://picsum.photos/400/300?grayscale&blur=2';}} // Fallback image
                 />
               </div>
             </CardHeader>

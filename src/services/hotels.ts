@@ -13,7 +13,7 @@ export interface Location {
 }
 
 /**
- * Represents a hotel with basic details.
+ * Represents a hotel with basic details and booking suggestions.
  */
 export interface Hotel {
   /**
@@ -36,6 +36,14 @@ export interface Hotel {
    * AI hint for image generation.
    */
   dataAiHint: string;
+  /**
+   * The suggested website for booking this hotel.
+   */
+  suggestedBookingSite?: string;
+  /**
+   * The URL to the suggested booking website (can be a generic search or homepage).
+   */
+  bookingSearchUrl?: string;
 }
 
 /**
@@ -51,48 +59,61 @@ export async function getHotelsNear(location: Location): Promise<Hotel[]> {
   await new Promise(resolve => setTimeout(resolve, 1000));
 
   // Simulate different results based on location (e.g., more hotels near common coordinates)
+  // In a real app, these URLs would be more specific, possibly deeplinks.
   const allHotels: Hotel[] = [
     {
       id: 'hotel1',
       name: 'The Himalayan View',
-      imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`,
+      imageUrl: `https://picsum.photos/400/300?random=himalayan`,
       rating: 4.5,
-      dataAiHint: 'mountain resort hotel balcony view'
+      dataAiHint: 'mountain resort hotel balcony view',
+      suggestedBookingSite: 'Booking.com',
+      bookingSearchUrl: 'https://www.booking.com/'
     },
     {
       id: 'hotel2',
       name: 'Riverside Inn',
-      imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`,
+      imageUrl: `https://picsum.photos/400/300?random=riverside`,
       rating: 3.8,
-      dataAiHint: 'riverside hotel cozy inn'
+      dataAiHint: 'riverside hotel cozy inn',
+      suggestedBookingSite: 'Agoda',
+      bookingSearchUrl: 'https://www.agoda.com/'
     },
     {
       id: 'hotel3',
       name: 'Forest Retreat',
-      imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`,
+      imageUrl: `https://picsum.photos/400/300?random=forest`,
       rating: 4.2,
-      dataAiHint: 'forest cabin hotel wood'
+      dataAiHint: 'forest cabin hotel wood',
+      suggestedBookingSite: 'MakeMyTrip',
+      bookingSearchUrl: 'https://www.makemytrip.com/hotels/'
     },
      {
       id: 'hotel4',
       name: 'Peak Paradise Lodge',
-      imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`,
+      imageUrl: `https://picsum.photos/400/300?random=peak`,
       rating: 4.8,
-      dataAiHint: 'luxury mountain lodge snow view'
+      dataAiHint: 'luxury mountain lodge snow view',
+       suggestedBookingSite: 'Goibibo',
+       bookingSearchUrl: 'https://www.goibibo.com/hotels/'
     },
     {
       id: 'hotel5',
       name: 'Valley Homestay',
-      imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`,
+      imageUrl: `https://picsum.photos/400/300?random=valley`,
       rating: 4.0,
-      dataAiHint: 'homestay local house valley'
+      dataAiHint: 'homestay local house valley',
+       suggestedBookingSite: 'Airbnb',
+       bookingSearchUrl: 'https://www.airbnb.com/'
     },
     {
       id: 'hotel6',
       name: 'Budget Backpackers Hostel',
-       imageUrl: `https://picsum.photos/400/300?random=${Math.random()}`,
+       imageUrl: `https://picsum.photos/400/300?random=hostel`,
       rating: 3.2,
-      dataAiHint: 'hostel budget travel backpacker'
+      dataAiHint: 'hostel budget travel backpacker',
+      suggestedBookingSite: 'Hostelworld',
+      bookingSearchUrl: 'https://www.hostelworld.com/'
     }
   ];
 

@@ -10,7 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
-import { Calendar as CalendarIcon, Car, Search, Loader2 } from 'lucide-react';
+import { Calendar as CalendarIcon, Car, Search, Loader2, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast'; // Use the toast hook
 
@@ -193,31 +193,37 @@ export default function RentalsPage() {
         ) : availableVehicles.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {availableVehicles.map((vehicle) => (
-              <Card key={vehicle.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
+              <Card key={vehicle.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] flex flex-col">
                 <CardHeader className="p-0">
                    <div className="relative h-48 w-full bg-muted">
                      <Image
-                       // Use placeholder if imageUrl is invalid or missing
-                       src={vehicle.imageUrl || 'https://picsum.photos/400/300?grayscale'}
+                       // Use placeholder if imageUrl is invalid or missing, seed with ID for consistency
+                       src={vehicle.imageUrl || `https://picsum.photos/seed/${vehicle.id}/400/300`}
                        alt={vehicle.model}
                        layout="fill"
                        objectFit="cover"
-                       data-ai-hint="rental car vehicle"
+                       data-ai-hint={vehicle.dataAiHint || 'rental car vehicle'}
                        onError={(e) => { e.currentTarget.src = 'https://picsum.photos/400/300?grayscale&blur=2';}} // Fallback image
                      />
                    </div>
                 </CardHeader>
-                <CardContent className="p-4">
+                <CardContent className="p-4 flex-grow">
                    <CardTitle className="mb-2 text-xl text-primary flex items-center">
                      <Car className="h-5 w-5 mr-2 text-accent"/> {vehicle.model}
                    </CardTitle>
                   <CardDescription className="text-lg font-medium text-secondary-foreground">
                     ₹{vehicle.dailyRate.toLocaleString()}/day
                   </CardDescription>
+                   <p className="text-xs text-muted-foreground mt-2">
+                     Booking via external provider.
+                   </p>
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
-                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                    Book Now (External)
+                  <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                     {/* Replace '#' with actual booking link if available from API */}
+                     <a href="#" target="_blank" rel="noopener noreferrer">
+                        Book Now <ExternalLink className="ml-2 h-4 w-4"/>
+                     </a>
                   </Button>
                    {/* Note: This button would typically link to an external booking site */}
                 </CardFooter>
