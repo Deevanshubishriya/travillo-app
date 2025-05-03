@@ -11,7 +11,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Car, Search, Loader2, ExternalLink } from 'lucide-react';
-import Image from 'next/image';
+import { ClientImage } from '@/components/client-image'; // Import the client component
 import { useToast } from '@/hooks/use-toast'; // Use the toast hook
 
 export default function RentalsPage() {
@@ -196,14 +196,15 @@ export default function RentalsPage() {
               <Card key={vehicle.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] flex flex-col">
                 <CardHeader className="p-0">
                    <div className="relative h-48 w-full bg-muted">
-                     <Image
+                     {/* Use ClientImage wrapper */}
+                     <ClientImage
                        // Use placeholder if imageUrl is invalid or missing, seed with ID for consistency
                        src={vehicle.imageUrl || `https://picsum.photos/seed/${vehicle.id}/400/300`}
                        alt={vehicle.model}
                        layout="fill"
                        objectFit="cover"
                        data-ai-hint={vehicle.dataAiHint || 'rental car vehicle'}
-                       onError={(e) => { e.currentTarget.src = 'https://picsum.photos/400/300?grayscale&blur=2';}} // Fallback image
+                       // Fallback handled within ClientImage
                      />
                    </div>
                 </CardHeader>

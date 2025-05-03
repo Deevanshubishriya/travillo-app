@@ -1,7 +1,8 @@
-import Image from 'next/image';
+
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowLeft, MapPin, Car, Hotel } from 'lucide-react';
+import { ClientImage } from '@/components/client-image'; // Import the client component
 
 // Mock data function (replace with actual data fetching)
 async function getLocationDetails(id: string) {
@@ -56,14 +57,15 @@ export default async function LocationDetailPage({ params }: { params: { id: str
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {/* Image Section */}
         <div className="relative aspect-video overflow-hidden rounded-lg shadow-lg">
-          <Image
+          {/* Use ClientImage wrapper */}
+          <ClientImage
             src={location.imageUrl}
             alt={location.name}
             layout="fill"
             objectFit="cover"
             quality={85}
             data-ai-hint={location.dataAiHint}
-             onError={(e) => { e.currentTarget.src = 'https://picsum.photos/800/500?grayscale&blur=2';}} // Fallback image
+             // Fallback handled within ClientImage
           />
         </div>
 

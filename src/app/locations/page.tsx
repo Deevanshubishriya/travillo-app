@@ -1,9 +1,9 @@
 
-import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { MapPin, TreePine, Waves, MountainSnow, Landmark } from 'lucide-react'; // Replaced Cave with Landmark
+import { ClientImage } from '@/components/client-image'; // Import the client component
 
 // Mock data for hidden locations - replace with API data later
 // Use location names in picsum URLs for more relevance
@@ -49,13 +49,14 @@ export default function LocationsPage() {
           <Card key={location.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
             <CardHeader className="p-0">
               <div className="relative h-48 w-full">
-                <Image
+                {/* Use ClientImage wrapper */}
+                <ClientImage
                   src={location.imageUrl}
                   alt={location.name}
                   layout="fill"
                   objectFit="cover"
                   data-ai-hint={location.dataAiHint}
-                   onError={(e) => { e.currentTarget.src = 'https://picsum.photos/400/300?grayscale&blur=2';}} // Fallback image
+                  // Fallback handled within ClientImage
                 />
               </div>
             </CardHeader>

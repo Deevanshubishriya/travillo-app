@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Hotel as HotelIcon, Search, Loader2, Star, ExternalLink } from 'lucide-react';
-import Image from 'next/image';
+import { ClientImage } from '@/components/client-image'; // Import the client component
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
 
@@ -161,13 +161,14 @@ export default function HotelsPage() {
               <Card key={hotel.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] flex flex-col">
                  <CardHeader className="p-0">
                    <div className="relative h-48 w-full bg-muted">
-                     <Image
+                     {/* Use ClientImage wrapper */}
+                     <ClientImage
                        src={hotel.imageUrl || `https://picsum.photos/400/300?random=${hotel.id}`} // Use ID for slightly more consistent placeholder
                        alt={hotel.name}
                        layout="fill"
                        objectFit="cover"
                        data-ai-hint={hotel.dataAiHint || 'hotel building exterior'}
-                       onError={(e) => { e.currentTarget.src = 'https://picsum.photos/400/300?grayscale&blur=2';}} // Fallback image
+                       // Fallback handled within ClientImage
                      />
                    </div>
                  </CardHeader>
