@@ -14,7 +14,7 @@ import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Car, Search, Loader2, ExternalLink } from 'lucide-react';
 import { ClientImage } from '@/components/client-image'; // Import the client component
 import { useToast } from '@/hooks/use-toast'; // Use the toast hook
-// Removed AuthGuard import
+
 
 export default function RentalsPage() {
   const [pickupLocation, setPickupLocation] = useState('');
@@ -83,11 +83,11 @@ export default function RentalsPage() {
   };
 
   return (
-    // Removed AuthGuard wrapper
+
     <div className="container py-12 md:py-16">
       <h1 className="mb-8 text-center text-4xl font-bold text-primary">Find Your Ride</h1>
       <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
-        Enter your trip details to find available vehicles for your Uttarakhand adventure.
+        Enter your trip details to find available vehicles for your next adventure with Travillo.
       </p>
 
       {/* Search Form Card */}

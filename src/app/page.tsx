@@ -32,20 +32,20 @@ export default function Home() {
         {/* Use ClientImage for Hero as well */}
         <ClientImage
           src="https://picsum.photos/1920/1080?random=hero"
-          alt="Scenic view of Uttarakhand mountains"
+          alt="Scenic view of travel destinations"
           layout="fill"
           objectFit="cover"
           quality={80}
           className="absolute inset-0 z-0 brightness-75"
-          data-ai-hint="uttarakhand mountains landscape panoramic"
+          data-ai-hint="travel landscape scenic view panoramic"
           priority // Prioritize loading hero image
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
           <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-6xl drop-shadow-md">
-            Discover Uttarakhand's Hidden Gems
+            Discover Hidden Gems with Travillo
           </h1>
           <p className="mb-8 max-w-2xl text-lg md:text-xl drop-shadow">
-            Explore serene villages, unexplored treks, and breathtaking viewpoints beyond the usual tourist trails.
+            Explore serene destinations, unexplored routes, and breathtaking viewpoints beyond the usual tourist trails.
           </p>
           <Link href="/locations">
             <Button size="lg" variant="default" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg">
@@ -65,7 +65,7 @@ export default function Home() {
             <FeatureCard
               icon={<MapPin className="h-10 w-10 text-accent" />}
               title="Hidden Location Showcase"
-              description="Curated guides and stunning visuals of Uttarakhand's best-kept secrets."
+              description="Curated guides and stunning visuals of the world's best-kept travel secrets."
               link="/locations"
               linkText="Find Locations"
             />
@@ -91,7 +91,7 @@ export default function Home() {
       <section id="gallery" className="py-16 md:py-24 bg-muted/50">
         <div className="container">
            <h2 className="mb-12 text-center text-3xl font-bold text-primary flex items-center justify-center gap-3">
-             <Camera className="h-8 w-8 text-accent"/> Glimpses of Uttarakhand
+             <Camera className="h-8 w-8 text-accent"/> Glimpses of Our Destinations
           </h2>
            <Carousel
              opts={{
@@ -144,7 +144,7 @@ export default function Home() {
                 <MessageSquare className="h-8 w-8 text-accent"/> Share Your Feedback
             </h2>
              <p className="mb-10 text-center text-lg text-muted-foreground">
-               We'd love to hear about your experience or suggestions!
+               We'd love to hear about your experience or suggestions for Travillo!
             </p>
              <FeedbackForm /> {/* Add the feedback form component here */}
           </div>
@@ -158,7 +158,7 @@ export default function Home() {
             Ready to Unveil the Unseen?
           </h2>
           <p className="mb-8 max-w-xl mx-auto text-lg text-secondary-foreground">
-            Start planning your unique Uttarakhand adventure today. Explore locations, book your ride, and find the perfect stay.
+            Start planning your unique adventure today with Travillo. Explore locations, book your ride, and find the perfect stay.
           </p>
           <Link href="/locations">
              <Button size="lg" variant="default" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg">

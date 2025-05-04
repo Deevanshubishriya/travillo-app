@@ -7,7 +7,7 @@ export default function TermsOfServicePage() {
 
       <div className="space-y-6 text-muted-foreground leading-relaxed">
         <p>
-          Please read these Terms of Service ("Terms", "Terms of Service") carefully before using the Uttarakhand Unveiled website (the "Service") operated by Your Team/Name ("us", "we", or "our").
+          Please read these Terms of Service ("Terms", "Terms of Service") carefully before using the Travillo website (the "Service") operated by Your Team/Name ("us", "we", or "our").
         </p>
         <p>
           Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.
@@ -87,7 +87,7 @@ export default function TermsOfServicePage() {
 
         <h2 className="text-2xl font-semibold text-primary pt-4">Contact Us</h2>
         <p>
-          If you have any questions about these Terms, please contact us: <a href="mailto:contact@uttarakhandunveiled.example.com" className="text-accent hover:underline">contact@uttarakhandunveiled.example.com</a>
+          If you have any questions about these Terms, please contact us: <a href="mailto:contact@travillo.example.com" className="text-accent hover:underline">contact@travillo.example.com</a>
         </p>
          <p className="text-sm pt-6">
           These terms were last updated on {new Date().toLocaleDateString()}.

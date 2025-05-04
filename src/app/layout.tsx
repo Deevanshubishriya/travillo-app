@@ -8,9 +8,9 @@ import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider'; // Import ThemeProvider
 
 export const metadata: Metadata = {
-  title: 'Uttarakhand Unveiled - Discover Hidden Gems',
+  title: 'Travillo - Discover Hidden Gems',
   description:
-    'Explore lesser-known locations, book rentals, and find hotels in Uttarakhand.',
+    'Explore lesser-known locations, book rentals, and find hotels with Travillo.',
 };
 
 export default function RootLayout({

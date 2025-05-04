@@ -14,7 +14,7 @@ export function Header() {
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Mountain className="h-6 w-6 text-primary" />
           <span className="font-bold text-primary sm:inline-block">
-            Uttarakhand Unveiled
+            Travillo
           </span>
         </Link>
         <nav className="flex flex-1 items-center space-x-4 lg:space-x-6">

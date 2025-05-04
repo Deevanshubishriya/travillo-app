@@ -7,7 +7,7 @@ export default function PrivacyPolicyPage() {
 
       <div className="space-y-6 text-muted-foreground leading-relaxed">
         <p>
-          Welcome to Uttarakhand Unveiled's Privacy Policy. Your privacy is critically important to us.
+          Welcome to Travillo's Privacy Policy. Your privacy is critically important to us.
         </p>
 
         <h2 className="text-2xl font-semibold text-primary pt-4">Information We Collect</h2>
@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
 
         <h2 className="text-2xl font-semibold text-primary pt-4">How We Use Collected Information</h2>
         <p>
-          Uttarakhand Unveiled may collect and use Users personal information for the following purposes:
+          Travillo may collect and use Users personal information for the following purposes:
         </p>
         <ul className="list-disc list-inside space-y-2">
           <li>To improve customer service: Information you provide helps us respond to your customer service requests and support needs more efficiently.</li>
@@ -46,7 +46,7 @@ export default function PrivacyPolicyPage() {
 
         <h2 className="text-2xl font-semibold text-primary pt-4">Changes to This Privacy Policy</h2>
         <p>
-          Uttarakhand Unveiled has the discretion to update this privacy policy at any time. When we do, we will revise the updated date at the bottom of this page. We encourage Users to frequently check this page for any changes to stay informed about how we are helping to protect the personal information we collect. You acknowledge and agree that it is your responsibility to review this privacy policy periodically and become aware of modifications.
+          Travillo has the discretion to update this privacy policy at any time. When we do, we will revise the updated date at the bottom of this page. We encourage Users to frequently check this page for any changes to stay informed about how we are helping to protect the personal information we collect. You acknowledge and agree that it is your responsibility to review this privacy policy periodically and become aware of modifications.
         </p>
 
         <h2 className="text-2xl font-semibold text-primary pt-4">Your Acceptance of These Terms</h2>
@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
 
         <h2 className="text-2xl font-semibold text-primary pt-4">Contacting Us</h2>
         <p>
-          If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at: <a href="mailto:contact@uttarakhandunveiled.example.com" className="text-accent hover:underline">contact@uttarakhandunveiled.example.com</a>
+          If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at: <a href="mailto:contact@travillo.example.com" className="text-accent hover:underline">contact@travillo.example.com</a>
         </p>
 
         <p className="text-sm pt-6">

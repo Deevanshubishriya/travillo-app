@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { MapPin, TreePine, Waves, MountainSnow, Landmark, Building2, Home } from 'lucide-react'; // Added Building2, Home
 import { ClientImage } from '@/components/client-image';
-// Removed AuthGuard import
+
 
 // Mock data for hidden locations - replace with API data later
 // Use location names in picsum URLs for more relevance
@@ -48,11 +48,11 @@ const getCategoryIcon = (category: string) => {
 
 export default function LocationsPage() {
   return (
-     // Removed AuthGuard wrapper
+
      <div className="container py-12 md:py-16">
        <h1 className="mb-8 text-center text-4xl font-bold text-primary">Explore Hidden Locations</h1>
        <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
-         Discover the lesser-known treasures of Uttarakhand. From tranquil villages to challenging treks, find your next adventure.
+         Discover lesser-known treasures with Travillo. From tranquil villages to challenging treks, find your next adventure.
        </p>
 
        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> {/* Added xl:grid-cols-4 for better layout */}
