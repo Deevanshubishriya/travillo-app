@@ -40,12 +40,13 @@ export function FeedbackForm() {
 
 
     try {
-      const result = await submitFeedback(formData); // Call server action
+      // Call the server action (which currently simulates email sending)
+      const result = await submitFeedback(formData);
 
       if (result.success) {
         toast({
-          title: "Feedback Sent!",
-          description: "Thank you for your valuable feedback.",
+          title: "Feedback Received!",
+          description: "Thank you for your valuable feedback. (Note: Email sending is simulated).",
         });
         // Reset form
         setName('');
