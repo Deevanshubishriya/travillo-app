@@ -2,8 +2,8 @@
 'use client'; // Needs client-side interaction for search
 
 import { useState } from 'react';
-import type { Hotel, Location } from '@/services/hotels'; // Adjust path if necessary
-import { getHotelsNear } from '@/services/hotels'; // Adjust path if necessary
+import type { Hotel } from '@/services/hotels'; // Adjust path if necessary
+import { getHotelsByLocationName } from '@/services/hotels'; // Updated import
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,7 +12,6 @@ import { Hotel as HotelIcon, Search, Loader2, Star, ExternalLink } from 'lucide-
 import { ClientImage } from '@/components/client-image'; // Import the client component
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
-// Removed AuthGuard import
 
 export default function HotelsPage() {
   const [locationQuery, setLocationQuery] = useState('');
@@ -21,26 +20,7 @@ export default function HotelsPage() {
   const [searchAttempted, setSearchAttempted] = useState(false);
   const { toast } = useToast();
 
-  // Basic location parsing (Improve with a Geocoding API in a real app)
-  const parseLocation = (query: string): Location | null => {
-    // Example: Try to extract coordinates like "29.38, 79.45"
-    const coords = query.match(/([-+]?\d*\.?\d+)\s*,\s*([-+]?\d*\.?\d+)/);
-    if (coords && coords.length === 3) {
-      const lat = parseFloat(coords[1]);
-      const lng = parseFloat(coords[2]);
-      if (!isNaN(lat) && !isNaN(lng)) {
-        return { lat, lng };
-      }
-    }
-    // In a real app, use a geocoding service to convert place names to coordinates
-    // For now, return null if it's not coordinates
-     toast({
-       title: "Location Format",
-       description: "Please enter coordinates like '29.38, 79.45' or use a geocoding service for place names.",
-       variant: "destructive"
-     });
-    return null;
-  };
+  // Removed parseLocation function as we search by name now
 
   const handleSearch = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -48,34 +28,26 @@ export default function HotelsPage() {
     setSearchAttempted(true);
     setNearbyHotels([]);
 
-    if (!locationQuery) {
+    if (!locationQuery.trim()) {
       toast({
         title: "Missing Location",
-        description: "Please enter a location or coordinates to search for hotels.",
+        description: "Please enter a location name to search for hotels.",
         variant: "destructive",
       });
       setIsLoading(false);
       return;
     }
 
-    // Placeholder for location resolution - ideally use Geocoding API
-    const location: Location | null = parseLocation(locationQuery);
-
-    if (!location) {
-        // Error handled within parseLocation via toast
-      setIsLoading(false);
-      return; // Stop if location couldn't be parsed
-    }
-
+    const locationName = locationQuery.trim();
 
     try {
-      // Pass the actual location object to the service
-      const hotels = await getHotelsNear(location);
+      // Pass the location name string to the service
+      const hotels = await getHotelsByLocationName(locationName);
       setNearbyHotels(hotels);
        if (hotels.length === 0) {
          toast({
            title: "No Hotels Found",
-           description: "No hotels found near the specified location.",
+           description: `No hotels found near "${locationName}".`,
          });
        }
     } catch (error) {
@@ -111,26 +83,25 @@ export default function HotelsPage() {
 
 
   return (
-    // Removed AuthGuard wrapper
     <div className="container py-12 md:py-16">
       <h1 className="mb-8 text-center text-4xl font-bold text-primary">Find Hotels Nearby</h1>
       <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
-        Enter a location (or coordinates like "lat, lng") to discover hotels near hidden gems and get suggestions for booking sites.
+        Enter a location name (e.g., village, city, landmark) to discover hotels near hidden gems and get suggestions for booking sites.
       </p>
 
       {/* Search Form Card */}
       <Card className="mb-12 shadow-md">
         <CardHeader>
           <CardTitle className="text-2xl text-primary">Search Hotels</CardTitle>
-          <CardDescription>Enter a location to find nearby accommodation.</CardDescription>
+          <CardDescription>Enter a location name to find nearby accommodation.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 items-end">
             <div className="space-y-1 flex-grow">
-              <Label htmlFor="locationQuery">Location / Coordinates</Label>
+              <Label htmlFor="locationQuery">Location Name</Label>
               <Input
                 id="locationQuery"
-                placeholder="e.g., Khirsu Village or 29.38, 79.45"
+                placeholder="e.g., Khirsu Village, Rishikesh, Binsar" // Updated placeholder
                 value={locationQuery}
                 onChange={(e) => setLocationQuery(e.target.value)}
                 required
