@@ -19,7 +19,7 @@ export async function submitFeedback(formData: FormData): Promise<FeedbackSubmis
     const name = formData.get('name') as string || 'Anonymous';
     const email = formData.get('email') as string || 'No email provided';
     const feedback = formData.get('feedback') as string;
-    const recipientEmail = "deevanshbishirya8126@gmail.com"; // The target email address
+    const recipientEmail = "deevanshubishriya8126@gmail.com"; // The target email address
 
     console.log("--- Feedback Received (Simulation) ---");
     console.log("Name:", name);
@@ -98,3 +98,4 @@ export async function submitFeedback(formData: FormData): Promise<FeedbackSubmis
 // 5. Secure API Key: Store your API key securely as an environment variable (e.g., `RESEND_API_KEY` in `.env.local`). **Do not hardcode it.**
 // 6. Implement Sending Logic: Replace the simulation block above with code that uses the SDK and your API key to send the email. Ensure proper error handling.
 // 7. Security: Be mindful of rate limits and potential abuse. Consider adding CAPTCHA or other security measures to your form.
+
