@@ -94,3 +94,4 @@ export async function submitFeedback(formData: FormData): Promise<FeedbackSubmis
 // 6. Implement Sending Logic: Replace the simulation block above with code using the SDK.
 // 7. Security: Consider rate limits and CAPTCHA.
 // 8. Firestore Integration: Decide how to handle combined success/failure scenarios.
+// 9. Check Server Logs: If you still get "unexpected response", check the server console where `npm run dev` is running for detailed Firestore errors (often related to security rules).
