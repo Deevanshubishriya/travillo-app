@@ -1,20 +1,20 @@
 
 import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
-// Removed getAuth import
+import { getAuth, type Auth } from 'firebase/auth'; // Ensure getAuth is imported
 import { getFirestore, type Firestore } from 'firebase/firestore';
 import { firebaseConfig } from './config';
 
 let app: FirebaseApp;
-// Removed auth variable
+let auth: Auth; // Declare auth
 let db: Firestore;
 
 // Initialize Firebase only if it hasn't been initialized yet
 if (!getApps().length) {
   try {
     app = initializeApp(firebaseConfig);
-    // Removed auth initialization
+    auth = getAuth(app); // Initialize auth
     db = getFirestore(app);
-    console.log('Firebase initialized successfully (Firestore only)');
+    console.log('Firebase initialized successfully (Auth & Firestore)');
   } catch (error) {
     console.error('Firebase initialization error:', error);
     // Handle initialization error (e.g., throw error, show message)
@@ -25,9 +25,8 @@ if (!getApps().length) {
 } else {
   // If already initialized, get the existing app instance
   app = getApps()[0];
-  // Removed auth retrieval
+  auth = getAuth(app); // Get existing auth instance
   db = getFirestore(app);
 }
 
-// Removed auth export
-export { app, db };
+export { app, auth, db }; // Export auth
