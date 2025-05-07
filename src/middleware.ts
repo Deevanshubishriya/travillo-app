@@ -1,7 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getCookie } from 'cookies-next/server'; // Import for server-side cookie access
+import { getCookie } from 'cookies-next'; // Import for server-side cookie access
 
 // Define which routes are protected
 const protectedRoutes = ['/locations', '/rentals', '/hotels'];
@@ -44,3 +44,4 @@ export const config = {
     '/((?!api|_next/static|_next/image|favicon.ico|assets).*)',
   ],
 };
+
