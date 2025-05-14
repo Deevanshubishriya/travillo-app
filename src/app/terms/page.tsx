@@ -1,6 +1,15 @@
-import React from 'react';
+
+"use client"; // Add this if not present, as we'll use hooks
+
+import React, { useState, useEffect } from 'react';
 
 export default function TermsOfServicePage() {
+  const [currentDate, setCurrentDate] = useState('');
+
+  useEffect(() => {
+    setCurrentDate(new Date().toLocaleDateString());
+  }, []);
+
   return (
     <div className="container mx-auto px-4 py-16">
       <h1 className="text-4xl font-bold mb-8 text-primary">Terms of Service</h1>
@@ -90,10 +99,9 @@ export default function TermsOfServicePage() {
           If you have any questions about these Terms, please contact us: <a href="mailto:contact@travillo.example.com" className="text-accent hover:underline">contact@travillo.example.com</a>
         </p>
          <p className="text-sm pt-6">
-          These terms were last updated on {new Date().toLocaleDateString()}.
+          These terms were last updated on {currentDate || '...'}
         </p>
       </div>
     </div>
   );
 }
-

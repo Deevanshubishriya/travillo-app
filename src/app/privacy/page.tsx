@@ -1,6 +1,15 @@
-import React from 'react';
+
+"use client"; // Add this if not present, as we'll use hooks
+
+import React, { useState, useEffect } from 'react';
 
 export default function PrivacyPolicyPage() {
+  const [currentDate, setCurrentDate] = useState('');
+
+  useEffect(() => {
+    setCurrentDate(new Date().toLocaleDateString());
+  }, []);
+
   return (
     <div className="container mx-auto px-4 py-16">
       <h1 className="text-4xl font-bold mb-8 text-primary">Privacy Policy</h1>
@@ -60,7 +69,7 @@ export default function PrivacyPolicyPage() {
         </p>
 
         <p className="text-sm pt-6">
-          This document was last updated on {new Date().toLocaleDateString()}.
+          This document was last updated on {currentDate || '...'}
         </p>
       </div>
     </div>
