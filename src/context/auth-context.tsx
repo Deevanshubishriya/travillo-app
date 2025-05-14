@@ -10,12 +10,12 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore'; // Firestore imports
+import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore'; // Firestore imports
 import { useToast } from '@/hooks/use-toast';
 
 
 interface AuthContextType {
-  user: FirebaseUser | null;
+  user: FirebaseUser | null; // Can be extended with profile data
   loading: boolean;
   signup: (email: string, password: string) => Promise<FirebaseUser | null>;
   login: (email: string, password: string) => Promise<FirebaseUser | null>;
@@ -34,11 +34,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (currentUser) {
         // Optionally fetch user profile from Firestore
         const userDocRef = doc(db, "users", currentUser.uid);
-        const userDoc = await getDoc(userDocRef);
-        if (userDoc.exists()) {
-          setUser({ ...currentUser, ...userDoc.data() } as FirebaseUser); // Combine auth data with Firestore data
-        } else {
-          setUser(currentUser);
+        try {
+          const userDoc = await getDoc(userDocRef);
+          if (userDoc.exists()) {
+            // Combine auth data with Firestore profile data
+            setUser({ ...currentUser, ...userDoc.data() } as FirebaseUser);
+          } else {
+            // No profile document yet, just set auth user
+            setUser(currentUser);
+            // You could create a profile here if it's missing and should exist
+            console.log("No profile document found for user:", currentUser.uid);
+          }
+        } catch (error) {
+            console.error("Error fetching user profile from Firestore:", error);
+            setUser(currentUser); // Fallback to auth user data
         }
       } else {
         setUser(null);
@@ -50,44 +59,56 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const signup = async (email: string, password: string): Promise<FirebaseUser | null> => {
+    setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       // Create a user profile document in Firestore
       const userDocRef = doc(db, "users", userCredential.user.uid);
       await setDoc(userDocRef, {
         email: userCredential.user.email,
-        createdAt: new Date(),
-        // Add any other default profile fields here
+        createdAt: serverTimestamp(), // Use Firestore server timestamp
+        // Add any other default profile fields here (e.g., displayName if collected at signup)
       });
       toast({ title: "Signup Successful", description: "Welcome to Travillo!" });
+      // The onAuthStateChanged listener will pick up the new user and their profile
       return userCredential.user;
     } catch (error: any) {
       console.error("Signup failed:", error);
       toast({ title: "Signup Failed", description: error.message || "An unknown error occurred.", variant: "destructive" });
-      throw error;
+      throw error; // Re-throw to be caught by the calling page
+    } finally {
+      setLoading(false);
     }
   };
 
   const login = async (email: string, password: string): Promise<FirebaseUser | null> => {
+    setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       toast({ title: "Login Successful", description: "Welcome back!" });
+      // The onAuthStateChanged listener will pick up the user and their profile
       return userCredential.user;
     } catch (error: any) {
       console.error("Login failed:", error);
       toast({ title: "Login Failed", description: error.message || "Invalid email or password.", variant: "destructive" });
-      throw error;
+      throw error; // Re-throw to be caught by the calling page
+    } finally {
+      setLoading(false);
     }
   };
 
   const logout = async () => {
+    setLoading(true);
     try {
       await signOut(auth);
       toast({ title: "Logged Out", description: "You have been successfully logged out." });
+      // User state will be set to null by onAuthStateChanged
     } catch (error: any) {
       console.error("Logout failed:", error);
       toast({ title: "Logout Failed", description: error.message || "An error occurred during logout.", variant: "destructive" });
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -101,7 +122,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {/* Children are rendered immediately, loading state managed internally or by consumer */}
+      {children}
     </AuthContext.Provider>
   );
 };
