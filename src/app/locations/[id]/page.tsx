@@ -1,7 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowLeft, MapPin, Car, Hotel, Map } from 'lucide-react';
+import { ArrowLeft, MapPin, Car, Hotel, Map as MapIconLucide } from 'lucide-react'; // Renamed Map to MapIconLucide to avoid conflict
 import { ClientImage } from '@/components/client-image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -31,14 +31,14 @@ async function getLocationDetails(id: string) {
 
 export default async function LocationDetailPage({ params }: { params: { id: string } }) {
   const location = await getLocationDetails(params.id);
+  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-  if (location.id === 'not-found' || !location.coordinates) {
+  if (location.id === 'not-found') {
     return (
         <div className="container py-12 md:py-16 text-center">
             <h1 className="text-3xl font-bold text-destructive mb-4">{location.name}</h1>
             <p className="text-lg text-muted-foreground mb-8">
                 {location.description}
-                {!location.coordinates && location.id !== 'not-found' && " (Map coordinates not available for this location.)"}
             </p>
              <Link href="/locations">
                  <Button variant="outline">
@@ -48,6 +48,11 @@ export default async function LocationDetailPage({ params }: { params: { id: str
         </div>
     )
   }
+
+  const mapEmbedUrl = location.coordinates
+    ? `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey || ''}&q=${location.coordinates.lat},${location.coordinates.lng}&zoom=14`
+    : '';
+
 
   return (
     <div className="container py-12 md:py-16">
@@ -105,18 +110,32 @@ export default async function LocationDetailPage({ params }: { params: { id: str
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center text-xl text-primary">
-                 <Map className="h-5 w-5 mr-2 text-accent"/> Location Map
+                 <MapIconLucide className="h-5 w-5 mr-2 text-accent"/> Location Map
               </CardTitle>
             </CardHeader>
             <CardContent>
-               <div className="relative aspect-square w-full overflow-hidden rounded-md border bg-muted">
-                <div className="flex h-full items-center justify-center">
-                    <p className="text-center text-muted-foreground p-4">
-                      Map display is currently under development.
-                      {location.coordinates && ` Coordinates: (${location.coordinates.lat}, ${location.coordinates.lng})`}
-                    </p>
-                </div>
-               </div>
+               {location.coordinates ? (
+                 <div className="relative aspect-video w-full overflow-hidden rounded-md border">
+                   <iframe
+                     width="100%"
+                     height="100%"
+                     style={{ border: 0 }}
+                     loading="lazy"
+                     allowFullScreen
+                     referrerPolicy="no-referrer-when-downgrade"
+                     src={mapEmbedUrl}
+                   ></iframe>
+                 </div>
+               ) : (
+                 <div className="flex h-full items-center justify-center p-4 bg-muted rounded-md">
+                   <p className="text-center text-muted-foreground">Map coordinates not available for this location.</p>
+                 </div>
+               )}
+                {!googleMapsApiKey && location.coordinates && (
+                  <p className="mt-2 text-xs text-muted-foreground text-center">
+                    Note: For best map results, a Google Maps API key is recommended. Map might be watermarked or have limitations.
+                  </p>
+                )}
                {location.coordinates && (
                  <p className="mt-2 text-xs text-muted-foreground text-center">
                    <a href={`https://www.google.com/maps?q=${location.coordinates.lat},${location.coordinates.lng}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
