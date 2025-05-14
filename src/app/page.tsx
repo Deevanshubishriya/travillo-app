@@ -3,43 +3,43 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Car, Hotel, Camera, MessageSquare } from 'lucide-react'; // Added Camera and MessageSquare icons
-import { ClientImage } from '@/components/client-image'; // Using ClientImage for consistency
+import { MapPin, Car, Hotel, Camera, MessageSquare, Route } from 'lucide-react'; // Added Route
+import { ClientImage } from '@/components/client-image';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"; // Import Carousel components
-import { FeedbackForm } from '@/components/feedback-form'; // Import the FeedbackForm component
+} from "@/components/ui/carousel";
+import { FeedbackForm } from '@/components/feedback-form';
+import { ItineraryPlanner } from '@/components/itinerary-planner'; // Import the ItineraryPlanner component
 
 export default function Home() {
   const galleryImages = [
-    { src: 'https://picsum.photos/seed/himalayan_peaks/600/400', alt: 'Snow-capped Himalayan peaks', hint: 'himalayas mountains' },
-    { src: 'https://picsum.photos/seed/ganga_rishikesh/600/400', alt: 'Ganga river flowing through Rishikesh', hint: 'rishikesh river' },
-    { src: 'https://picsum.photos/seed/mountain_roadtrip/600/400', alt: 'Scenic mountain road trip in Uttarakhand', hint: 'uttarakhand roadtrip' },
-    { src: 'https://picsum.photos/seed/kedarnath_temple/600/400', alt: 'Kedarnath Temple surrounded by mountains', hint: 'kedarnath temple' },
-    { src: 'https://picsum.photos/seed/nainital_lake_boats/600/400', alt: 'Naini Lake in Nainital with boats', hint: 'nainital lake' },
-    { src: 'https://picsum.photos/seed/uttarakhand_waterfall/600/400', alt: 'A beautiful waterfall in Uttarakhand', hint: 'uttarakhand waterfall' },
-    { src: 'https://picsum.photos/seed/pahadi_village_culture/600/400', alt: 'Traditional Pahadi village life', hint: 'pahadi village' },
-    { src: 'https://picsum.photos/seed/bageshwar_temple/600/400', alt: 'Ancient temple architecture in Uttarakhand', hint: 'ancient temple' },
+    { src: 'https://picsum.photos/seed/himalayan_peaks_gallery/600/400', alt: 'Snow-capped Himalayan peaks', hint: 'uttarakhand himalayas' },
+    { src: 'https://picsum.photos/seed/ganga_rishikesh_gallery/600/400', alt: 'Ganga river flowing through Rishikesh', hint: 'rishikesh river' },
+    { src: 'https://picsum.photos/seed/uttarakhand_roadtrip_gallery/600/400', alt: 'Scenic mountain road trip in Uttarakhand', hint: 'uttarakhand roadtrip' },
+    { src: 'https://picsum.photos/seed/kedarnath_temple_gallery/600/400', alt: 'Kedarnath Temple surrounded by mountains', hint: 'kedarnath temple' },
+    { src: 'https://picsum.photos/seed/nainital_lake_boats_gallery/600/400', alt: 'Naini Lake in Nainital with boats', hint: 'nainital lake' },
+    { src: 'https://picsum.photos/seed/uttarakhand_waterfall_gallery/600/400', alt: 'A beautiful waterfall in Uttarakhand', hint: 'uttarakhand waterfall' },
+    { src: 'https://picsum.photos/seed/pahadi_village_culture_gallery/600/400', alt: 'Traditional Pahadi village life', hint: 'pahadi village' },
+    { src: 'https://picsum.photos/seed/bageshwar_temple_gallery/600/400', alt: 'Ancient temple architecture in Uttarakhand', hint: 'ancient temple' },
   ];
 
   return (
     <>
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[400px] w-full">
-        {/* Use ClientImage for Hero as well */}
         <ClientImage
-          src="https://picsum.photos/1920/1080?random=hero"
-          alt="Scenic travel background"
+          src="https://picsum.photos/seed/homepage_hero/1920/1080"
+          alt="Scenic travel background - Uttarakhand Himalayas"
           layout="fill"
           objectFit="cover"
           quality={80}
           className="absolute inset-0 z-0 brightness-75"
           data-ai-hint="travel background mountains"
-          priority // Prioritize loading hero image
+          priority
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
           <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-6xl drop-shadow-md">
@@ -97,16 +97,16 @@ export default function Home() {
            <Carousel
              opts={{
                align: "start",
-               loop: true, // Enable looping
+               loop: true,
              }}
-             className="w-full max-w-4xl mx-auto" // Adjusted max-width and centering
+             className="w-full max-w-4xl mx-auto"
            >
              <CarouselContent>
                {galleryImages.map((image, index) => (
-                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3"> {/* Adjust basis for different screen sizes */}
-                   <div className="p-1"> {/* Add padding around item if needed */}
+                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                   <div className="p-1">
                      <Card className="overflow-hidden shadow-md">
-                       <CardContent className="flex aspect-square items-center justify-center p-0"> {/* Use Card for structure and aspect ratio */}
+                       <CardContent className="flex aspect-square items-center justify-center p-0">
                          <div className="relative w-full h-full">
                            <ClientImage
                              src={image.src}
@@ -124,8 +124,8 @@ export default function Home() {
                  </CarouselItem>
                ))}
              </CarouselContent>
-             <CarouselPrevious className="left-[-50px] sm:left-[-60px]" /> {/* Adjust button position */}
-             <CarouselNext className="right-[-50px] sm:right-[-60px]" /> {/* Adjust button position */}
+             <CarouselPrevious className="left-[-50px] sm:left-[-60px]" />
+             <CarouselNext className="right-[-50px] sm:right-[-60px]" />
            </Carousel>
 
            <div className="mt-12 text-center">
@@ -138,19 +138,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Itinerary Planner Section */}
+      <section id="itinerary-planner" className="py-16 md:py-24 bg-background">
+        <div className="container max-w-3xl mx-auto">
+          <h2 className="mb-4 text-center text-3xl font-bold text-primary flex items-center justify-center gap-3">
+            <Route className="h-8 w-8 text-accent"/> Plan Your Uttarakhand Itinerary
+          </h2>
+          <p className="mb-10 text-center text-lg text-muted-foreground">
+            Let our AI help you craft the perfect trip!
+          </p>
+          <ItineraryPlanner />
+        </div>
+      </section>
+
       {/* Feedback Section */}
-       <section id="feedback" className="py-16 md:py-24 bg-background">
+       <section id="feedback" className="py-16 md:py-24 bg-muted/50">
           <div className="container max-w-3xl mx-auto">
              <h2 className="mb-4 text-center text-3xl font-bold text-primary flex items-center justify-center gap-3">
                 <MessageSquare className="h-8 w-8 text-accent"/> Share Your Feedback
             </h2>
              <p className="mb-10 text-center text-lg text-muted-foreground">
-               We'd love to hear about your experience or suggestions for Travillo!
+               We&apos;d love to hear about your experience or suggestions for Travillo!
             </p>
-             <FeedbackForm /> {/* Add the feedback form component here */}
+             <FeedbackForm />
           </div>
        </section>
-
 
       {/* Call to Action Section */}
        <section className="py-16 md:py-24 bg-secondary">
