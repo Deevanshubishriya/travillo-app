@@ -31,7 +31,6 @@ async function getLocationDetails(id: string) {
 
 export default async function LocationDetailPage({ params }: { params: { id: string } }) {
   const location = await getLocationDetails(params.id);
-  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   if (location.id === 'not-found') {
     return (
@@ -48,11 +47,6 @@ export default async function LocationDetailPage({ params }: { params: { id: str
         </div>
     )
   }
-
-  const mapEmbedUrl = location.coordinates
-    ? `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey || ''}&q=${location.coordinates.lat},${location.coordinates.lng}&zoom=14`
-    : '';
-
 
   return (
     <div className="container py-12 md:py-16">
@@ -105,7 +99,7 @@ export default async function LocationDetailPage({ params }: { params: { id: str
         </div>
 
 
-        {/* Right Column: Map */}
+        {/* Right Column: Map Placeholder */}
         <div className="md:sticky md:top-24">
           <Card className="shadow-lg">
             <CardHeader>
@@ -114,28 +108,9 @@ export default async function LocationDetailPage({ params }: { params: { id: str
               </CardTitle>
             </CardHeader>
             <CardContent>
-               {location.coordinates ? (
-                 <div className="relative aspect-video w-full overflow-hidden rounded-md border">
-                   <iframe
-                     width="100%"
-                     height="100%"
-                     style={{ border: 0 }}
-                     loading="lazy"
-                     allowFullScreen
-                     referrerPolicy="no-referrer-when-downgrade"
-                     src={mapEmbedUrl}
-                   ></iframe>
-                 </div>
-               ) : (
-                 <div className="flex h-full items-center justify-center p-4 bg-muted rounded-md">
-                   <p className="text-center text-muted-foreground">Map coordinates not available for this location.</p>
-                 </div>
-               )}
-                {!googleMapsApiKey && location.coordinates && (
-                  <p className="mt-2 text-xs text-muted-foreground text-center">
-                    Note: For best map results, a Google Maps API key is recommended. Map might be watermarked or have limitations.
-                  </p>
-                )}
+               <div className="flex h-48 items-center justify-center p-4 bg-muted rounded-md">
+                 <p className="text-center text-muted-foreground">Map display is currently unavailable.</p>
+               </div>
                {location.coordinates && (
                  <p className="mt-2 text-xs text-muted-foreground text-center">
                    <a href={`https://www.google.com/maps?q=${location.coordinates.lat},${location.coordinates.lng}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
