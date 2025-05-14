@@ -11,16 +11,34 @@ let db: Firestore;
 // Initialize Firebase only if it hasn't been initialized yet
 if (!getApps().length) {
   try {
+    // Log the config being used for debugging
+    console.log("Attempting to initialize Firebase with config:", JSON.stringify(firebaseConfig, null, 2));
+
+    // Check for essential config values
+    if (!firebaseConfig.apiKey) {
+      console.error("Firebase initialization failed: apiKey is missing.");
+      throw new Error('Firebase apiKey is missing. Check your .env.local file and ensure NEXT_PUBLIC_FIREBASE_API_KEY is set.');
+    }
+    if (!firebaseConfig.authDomain) {
+      console.error("Firebase initialization failed: authDomain is missing.");
+      throw new Error('Firebase authDomain is missing. Check your .env.local file and ensure NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN is set.');
+    }
+    if (!firebaseConfig.projectId) {
+      console.error("Firebase initialization failed: projectId is missing.");
+      throw new Error('Firebase projectId is missing. Check your .env.local file and ensure NEXT_PUBLIC_FIREBASE_PROJECT_ID is set.');
+    }
+    // Add checks for other essential fields if necessary
+
     app = initializeApp(firebaseConfig);
     auth = getAuth(app); // Initialize auth
     db = getFirestore(app);
     console.log('Firebase initialized successfully (Auth & Firestore)');
-  } catch (error) {
-    console.error('Firebase initialization error:', error);
-    // Handle initialization error (e.g., throw error, show message)
-    // Depending on the app's needs, you might want to prevent further execution
-    // or gracefully degrade functionality.
-    throw new Error('Failed to initialize Firebase.');
+  } catch (error: any) {
+    console.error('Firebase initialization error caught:', error.message);
+    // Log the config that caused the error
+    console.error('Config used during failed initialization:', JSON.stringify(firebaseConfig, null, 2));
+    // Re-throw a more specific error or the original one
+    throw new Error(`Failed to initialize Firebase. Original error: ${error.message}. Check console for config details and ensure all NEXT_PUBLIC_FIREBASE_ environment variables are correctly set in .env.local and the server was restarted.`);
   }
 } else {
   // If already initialized, get the existing app instance
