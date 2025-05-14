@@ -8,6 +8,7 @@ import { Footer } from '@/components/layout/footer';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AuthProvider } from '@/context/auth-context'; // Import AuthProvider
+import { TravilloAiBot } from '@/components/travillo-ai-bot'; // Import the AI Bot
 
 export const metadata: Metadata = {
   title: 'Travillo - Discover Hidden Gems',
@@ -36,6 +37,7 @@ export default function RootLayout({
               <Footer />
             </div>
             <Toaster />
+            <TravilloAiBot /> {/* Add the AI Bot here */}
           </AuthProvider>
         </ThemeProvider>
       </body>
