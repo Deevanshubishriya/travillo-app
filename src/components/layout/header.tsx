@@ -2,16 +2,20 @@
 'use client';
 
 import Link from 'next/link';
-import { Mountain, Search as SearchIcon } from 'lucide-react'; // Added SearchIcon
+import { Mountain, Search as SearchIcon, LogOut, User, UserPlus as UserPlusIcon } from 'lucide-react';
 import { NavLink } from './nav-link';
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
-import { Input } from '@/components/ui/input'; // Added Input
-import { useState } from 'react'; // Added useState
-import { useRouter } from 'next/navigation'; // Added useRouter for App Router
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/auth-context'; // Import useAuth
+import { deleteCookie } from 'cookies-next'; // Import for deleting cookie
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
+  const { user, logout, loading } = useAuth(); // Get user and logout function
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -19,6 +23,12 @@ export function Header() {
       router.push(`/locations?search=${encodeURIComponent(searchQuery.trim())}`);
       // setSearchQuery(''); // Optionally clear search after submission
     }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    deleteCookie('travillo-session', { path: '/' }); // Remove the session cookie on logout
+    router.push('/'); // Redirect to home page after logout
   };
 
   return (
@@ -45,14 +55,36 @@ export function Header() {
             <SearchIcon className="absolute left-2.5 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
             <Input
               type="search"
-              placeholder="Search Uttarakhand spots..."
+              placeholder="Search Travillo spots..."
               className="h-9 w-full rounded-md bg-background pl-8 pr-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              aria-label="Search Uttarakhand spots"
+              aria-label="Search Travillo spots"
             />
           </form>
           <ThemeToggleButton />
+          {!loading && (
+            <>
+              {user ? (
+                <Button variant="outline" size="sm" onClick={handleLogout}>
+                  <LogOut className="mr-2 h-4 w-4" /> Logout
+                </Button>
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <Link href="/login" passHref>
+                    <Button variant="ghost" size="sm">
+                      <User className="mr-2 h-4 w-4" /> Login
+                    </Button>
+                  </Link>
+                  <Link href="/signup" passHref>
+                    <Button variant="default" size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                      <UserPlusIcon className="mr-2 h-4 w-4" /> Sign Up
+                    </Button>
+                  </Link>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
     </header>
