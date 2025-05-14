@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { ArrowLeft, MapPin, Car, Hotel, Map } from 'lucide-react';
 import { ClientImage } from '@/components/client-image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapboxMap } from '@/components/mapbox-map'; // Import MapboxMap
 
 // Mock data function (replace with actual data fetching)
 async function getLocationDetails(id: string) {
@@ -49,8 +48,6 @@ export default async function LocationDetailPage({ params }: { params: { id: str
         </div>
     )
   }
-
-  const mapboxAccessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
   return (
     <div className="container py-12 md:py-16">
@@ -113,19 +110,12 @@ export default async function LocationDetailPage({ params }: { params: { id: str
             </CardHeader>
             <CardContent>
                <div className="relative aspect-square w-full overflow-hidden rounded-md border bg-muted">
-                 {mapboxAccessToken && location.coordinates ? (
-                    <MapboxMap
-                        longitude={location.coordinates.lng}
-                        latitude={location.coordinates.lat}
-                        accessToken={mapboxAccessToken}
-                    />
-                 ) : (
-                    <div className="flex h-full items-center justify-center">
-                        <p className="text-center text-muted-foreground p-4">
-                        { !mapboxAccessToken ? "Mapbox Access Token is not configured. Map cannot be displayed." : "Map coordinates not available for this location."}
-                        </p>
-                    </div>
-                 )}
+                <div className="flex h-full items-center justify-center">
+                    <p className="text-center text-muted-foreground p-4">
+                      Map display is currently under development.
+                      {location.coordinates && ` Coordinates: (${location.coordinates.lat}, ${location.coordinates.lng})`}
+                    </p>
+                </div>
                </div>
                {location.coordinates && (
                  <p className="mt-2 text-xs text-muted-foreground text-center">
