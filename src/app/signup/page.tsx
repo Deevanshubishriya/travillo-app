@@ -58,7 +58,7 @@ export default function SignupPage() {
 
     try {
       await signup(email, password);
-      // Set a dummy session cookie for middleware purposes
+      // Set a session cookie for middleware purposes
       setCookie('travillo-session', 'loggedIn', { maxAge: 60 * 60 * 24 * 7, path: '/' }); // Expires in 7 days
       router.push('/'); // Redirect to home page after successful signup
     } catch (error: any) {

@@ -37,8 +37,7 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
-      // Set a dummy session cookie for middleware purposes
-      // In a real app, Firebase handles session management, but middleware needs a hint.
+      // Set a session cookie for middleware purposes
       setCookie('travillo-session', 'loggedIn', { maxAge: 60 * 60 * 24 * 7, path: '/' }); // Expires in 7 days
       router.push('/'); // Redirect to home page
     } catch (error: any) {
