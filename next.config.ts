@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
         hostname: 'placehold.co',
         port: '',
         pathname: '/**',
+      },
+      { // Allow source.unsplash.com for Unsplash images
+        protocol: 'https',
+        hostname: 'source.unsplash.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
