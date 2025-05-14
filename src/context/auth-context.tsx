@@ -73,8 +73,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       // The onAuthStateChanged listener will pick up the new user and their profile
       return userCredential.user;
     } catch (error: any) {
-      console.error("Signup failed:", error);
-      toast({ title: "Signup Failed", description: error.message || "An unknown error occurred.", variant: "destructive" });
+      console.error("Signup failed:", error.code, error.message);
+      let friendlyMessage = "An unknown error occurred during signup.";
+      if (error.code === 'auth/email-already-in-use') {
+        friendlyMessage = "This email address is already in use. Please try a different email or log in.";
+      } else if (error.code === 'auth/weak-password') {
+        friendlyMessage = "The password is too weak. Please choose a stronger password (at least 6 characters).";
+      } else if (error.message) {
+        friendlyMessage = error.message; // Fallback to Firebase's message if it's something else
+      }
+      toast({ title: "Signup Failed", description: friendlyMessage, variant: "destructive" });
       throw error; // Re-throw to be caught by the calling page
     } finally {
       setLoading(false);
@@ -89,9 +97,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       // The onAuthStateChanged listener will pick up the user and their profile
       return userCredential.user;
     } catch (error: any) {
-      console.error("Login failed:", error);
-      toast({ title: "Login Failed", description: error.message || "Invalid email or password.", variant: "destructive" });
-      throw error; // Re-throw to be caught by the calling page
+      console.error("Login failed:", error.code, error.message);
+      let friendlyMessage = "Login failed. Please try again.";
+      if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        friendlyMessage = "Invalid email or password. Please check your credentials and try again.";
+      } else if (error.code === 'auth/user-disabled') {
+        friendlyMessage = "This account has been disabled. Please contact support.";
+      } else if (error.message) {
+        // For other errors, Firebase's message might be useful but can be technical.
+        // You can decide to show error.message or a more generic one.
+        friendlyMessage = "An unexpected error occurred. Please try again later.";
+      }
+      toast({
+        title: "Login Failed",
+        description: friendlyMessage,
+        variant: "destructive"
+      });
+      throw error; // Re-throw to be caught by the calling page if needed elsewhere
     } finally {
       setLoading(false);
     }
