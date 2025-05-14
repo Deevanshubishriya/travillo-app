@@ -1,3 +1,4 @@
+
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
@@ -31,6 +32,12 @@ const nextConfig: NextConfig = {
       { // Allow Google Maps Static API / Tiles
         protocol: 'https',
         hostname: 'maps.googleapis.com',
+        port: '',
+        pathname: '/**',
+      },
+      { // Allow placehold.co for placeholder images
+        protocol: 'https',
+        hostname: 'placehold.co',
         port: '',
         pathname: '/**',
       }
