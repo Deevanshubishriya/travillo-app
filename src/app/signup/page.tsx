@@ -59,7 +59,7 @@ export default function SignupPage() {
     try {
       await signup(email, password);
       // Set a dummy session cookie for middleware purposes
-      setCookie('travillo-session', 'loggedIn', { maxAge: 60 * 60 * 24, path: '/' }); // Expires in 1 day
+      setCookie('travillo-session', 'loggedIn', { maxAge: 60 * 60 * 24 * 7, path: '/' }); // Expires in 7 days
       router.push('/'); // Redirect to home page after successful signup
     } catch (error: any) {
       // Error toast is handled by useAuth hook
