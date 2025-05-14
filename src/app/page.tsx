@@ -32,13 +32,13 @@ export default function Home() {
       <section className="relative h-[60vh] min-h-[400px] w-full">
         {/* Use ClientImage for Hero as well */}
         <ClientImage
-          src="https://source.unsplash.com/7VUar7ZgPvc/1920x1080"
-          alt="Aerial view of city near mountain during daytime"
+          src="https://placehold.co/1920x1080.png"
+          alt="Scenic travel background"
           layout="fill"
           objectFit="cover"
           quality={80}
           className="absolute inset-0 z-0 brightness-75"
-          data-ai-hint="aerial mountain city"
+          data-ai-hint="travel background"
           priority // Prioritize loading hero image
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
