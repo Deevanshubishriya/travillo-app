@@ -40,7 +40,7 @@ export default function LoginPage() {
       // Set a dummy session cookie for middleware purposes
       // In a real app, Firebase handles session management, but middleware needs a hint.
       setCookie('travillo-session', 'loggedIn', { maxAge: 60 * 60 * 24, path: '/' }); // Expires in 1 day
-      router.push('/locations'); // Redirect to a protected page or dashboard
+      router.push('/'); // Redirect to home page
     } catch (error: any) {
       // Error toast is handled by useAuth hook, but you can add specific logic here if needed
       console.error("Login page error:", error.message);
