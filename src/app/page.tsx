@@ -32,13 +32,13 @@ export default function Home() {
       <section className="relative h-[60vh] min-h-[400px] w-full">
         {/* Use ClientImage for Hero as well */}
         <ClientImage
-          src="https://placehold.co/1920x1080.png"
+          src="https://picsum.photos/1920/1080?random=hero"
           alt="Scenic travel background"
           layout="fill"
           objectFit="cover"
           quality={80}
           className="absolute inset-0 z-0 brightness-75"
-          data-ai-hint="travel background"
+          data-ai-hint="travel background mountains"
           priority // Prioritize loading hero image
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
