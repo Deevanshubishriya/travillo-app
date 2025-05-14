@@ -12,7 +12,7 @@ import {
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore'; // Firestore imports
 import { useToast } from '@/hooks/use-toast';
-
+import { deleteCookie } from 'cookies-next'; // Import for deleting cookie
 
 interface AuthContextType {
   user: FirebaseUser | null; // Can be extended with profile data
@@ -79,6 +79,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         friendlyMessage = "This email address is already in use. Please try a different email or log in.";
       } else if (error.code === 'auth/weak-password') {
         friendlyMessage = "The password is too weak. Please choose a stronger password (at least 6 characters).";
+      } else if (error.code === 'auth/api-key-not-valid') {
+        friendlyMessage = "Firebase API Key is not valid. Please check your environment configuration.";
       } else if (error.message) {
         friendlyMessage = error.message; // Fallback to Firebase's message if it's something else
       }
@@ -103,9 +105,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         friendlyMessage = "Invalid email or password. Please check your credentials and try again.";
       } else if (error.code === 'auth/user-disabled') {
         friendlyMessage = "This account has been disabled. Please contact support.";
+      } else if (error.code === 'auth/api-key-not-valid') {
+        friendlyMessage = "Firebase API Key is not valid. Please check your environment configuration.";
       } else if (error.message) {
         // For other errors, Firebase's message might be useful but can be technical.
-        // You can decide to show error.message or a more generic one.
         friendlyMessage = "An unexpected error occurred. Please try again later.";
       }
       toast({
@@ -123,6 +126,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     try {
       await signOut(auth);
+      deleteCookie('travillo-session', { path: '/' }); // Also delete cookie here for robustness
       toast({ title: "Logged Out", description: "You have been successfully logged out." });
       // User state will be set to null by onAuthStateChanged
     } catch (error: any) {
