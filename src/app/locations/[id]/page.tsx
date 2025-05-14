@@ -1,14 +1,15 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowLeft, MapPin, Car, Hotel, Map } from 'lucide-react'; // Added Map icon
-import { ClientImage } from '@/components/client-image'; // Import the client component
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'; // Added Card components
+import { ArrowLeft, MapPin, Car, Hotel, Map } from 'lucide-react';
+import { ClientImage } from '@/components/client-image';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { MapboxMap } from '@/components/mapbox-map'; // Import MapboxMap
 
 // Mock data function (replace with actual data fetching)
 async function getLocationDetails(id: string) {
   // Simulate API call
-  await new Promise(resolve => setTimeout(resolve, 100)); // Simulate network delay
+  await new Promise(resolve => setTimeout(resolve, 100));
 
   const locations = [
     { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: 'https://placehold.co/800x500.png', dataAiHint: 'himalayan village serene landscape', coordinates: { lat: 30.1978, lng: 78.8798 } },
@@ -24,7 +25,6 @@ async function getLocationDetails(id: string) {
   ];
   const location = locations.find(loc => loc.id === id);
   if (!location) {
-    // Handle not found case appropriately in a real app
     return { id: 'not-found', name: 'Location Not Found', description: 'The requested location could not be found.', imageUrl: 'https://placehold.co/800x500.png', dataAiHint: 'placeholder image error', coordinates: null };
   }
   return location;
@@ -33,11 +33,14 @@ async function getLocationDetails(id: string) {
 export default async function LocationDetailPage({ params }: { params: { id: string } }) {
   const location = await getLocationDetails(params.id);
 
-  if (location.id === 'not-found') {
+  if (location.id === 'not-found' || !location.coordinates) {
     return (
         <div className="container py-12 md:py-16 text-center">
             <h1 className="text-3xl font-bold text-destructive mb-4">{location.name}</h1>
-            <p className="text-lg text-muted-foreground mb-8">{location.description}</p>
+            <p className="text-lg text-muted-foreground mb-8">
+                {location.description}
+                {!location.coordinates && location.id !== 'not-found' && " (Map coordinates not available for this location.)"}
+            </p>
              <Link href="/locations">
                  <Button variant="outline">
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back to Locations
@@ -47,14 +50,7 @@ export default async function LocationDetailPage({ params }: { params: { id: str
     )
   }
 
-  const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
-  // Generate a Google Maps embed URL
-  // If API key is present, use it. Otherwise, attempt a keyless embed (may have limitations).
-  const mapEmbedUrl = location.coordinates
-    ? `https://www.google.com/maps/embed/v1/place?${googleMapsApiKey ? `key=${googleMapsApiKey}&` : ''}q=${location.coordinates.lat},${location.coordinates.lng}`
-    : '';
-
+  const mapboxAccessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
   return (
     <div className="container py-12 md:py-16">
@@ -69,7 +65,6 @@ export default async function LocationDetailPage({ params }: { params: { id: str
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
         {/* Left Column: Image and Details */}
         <div className="space-y-8">
-           {/* Image Section */}
            <div className="relative aspect-video overflow-hidden rounded-lg shadow-lg">
             <ClientImage
               src={location.imageUrl}
@@ -81,7 +76,6 @@ export default async function LocationDetailPage({ params }: { params: { id: str
             />
           </div>
 
-          {/* Details Section */}
           <div>
             <h1 className="mb-4 text-4xl font-bold text-primary flex items-center">
                <MapPin className="h-8 w-8 mr-3 text-accent" /> {location.name}
@@ -110,7 +104,7 @@ export default async function LocationDetailPage({ params }: { params: { id: str
 
 
         {/* Right Column: Map */}
-        <div className="md:sticky md:top-24"> {/* Sticky map on medium screens and up */}
+        <div className="md:sticky md:top-24">
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center text-xl text-primary">
@@ -118,43 +112,32 @@ export default async function LocationDetailPage({ params }: { params: { id: str
               </CardTitle>
             </CardHeader>
             <CardContent>
-               <div className="relative aspect-square w-full overflow-hidden rounded-md border bg-muted flex items-center justify-center">
-                 {mapEmbedUrl ? (
-                    <iframe
-                      src={mapEmbedUrl}
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen={false}
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title={`Map of ${location.name}`}
-                      className="absolute inset-0"
-                    ></iframe>
+               <div className="relative aspect-square w-full overflow-hidden rounded-md border bg-muted">
+                 {mapboxAccessToken && location.coordinates ? (
+                    <MapboxMap
+                        longitude={location.coordinates.lng}
+                        latitude={location.coordinates.lat}
+                        accessToken={mapboxAccessToken}
+                    />
                  ) : (
-                    <p className="text-center text-muted-foreground">Map coordinates not available for this location.</p>
+                    <div className="flex h-full items-center justify-center">
+                        <p className="text-center text-muted-foreground p-4">
+                        { !mapboxAccessToken ? "Mapbox Access Token is not configured. Map cannot be displayed." : "Map coordinates not available for this location."}
+                        </p>
+                    </div>
                  )}
                </div>
-               {(mapEmbedUrl || location.coordinates) && (
+               {location.coordinates && (
                  <p className="mt-2 text-xs text-muted-foreground text-center">
-                    {!googleMapsApiKey && location.coordinates && "Interactive map functionality may be limited or display errors. A Google Maps API key is recommended for full functionality. "}
-                    {location.coordinates && (
-                        <>
-                        <a href={`https://www.google.com/maps?q=${location.coordinates.lat},${location.coordinates.lng}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
-                            Open in Google Maps
-                        </a>
-                        </>
-                    )}
+                   <a href={`https://www.google.com/maps?q=${location.coordinates.lat},${location.coordinates.lng}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+                       View on Google Maps (External)
+                   </a>
                  </p>
                )}
             </CardContent>
           </Card>
         </div>
-
       </div>
-
     </div>
   );
 }
-
-    
