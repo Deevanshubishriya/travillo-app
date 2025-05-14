@@ -1,3 +1,3 @@
 
 // Flows will be imported for their side effects in this file.
-import './flows/uttarakhand-info-flow';
+// import './flows/uttarakhand-info-flow'; // Removed as the flow is deleted
