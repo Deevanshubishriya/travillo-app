@@ -8,7 +8,6 @@ import { Footer } from '@/components/layout/footer';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AuthProvider } from '@/context/auth-context'; // Import AuthProvider
-import { BotpressChat } from '@/components/botpress-chat'; // Import the new component
 
 
 export const metadata: Metadata = {
@@ -42,8 +41,7 @@ export default function RootLayout({
           </AuthProvider>
         </ThemeProvider>
 
-        {/* Botpress Webchat Script - now handled by BotpressChat component */}
-        <BotpressChat />
+        {/* Botpress Webchat Script removed */}
       </body>
     </html>
   );
