@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -15,14 +16,14 @@ import { FeedbackForm } from '@/components/feedback-form'; // Import the Feedbac
 
 export default function Home() {
   const galleryImages = [
-    { src: 'https://picsum.photos/seed/himalayas/600/400', alt: 'Snow-capped Himalayan peaks', hint: 'himalayas snow mountains' },
-    { src: 'https://picsum.photos/seed/rishikesh/600/400', alt: 'Ganga river flowing through Rishikesh', hint: 'rishikesh ganges river city' },
-    { src: 'https://picsum.photos/seed/valleyofflowers/600/400', alt: 'Valley of Flowers national park', hint: 'valley flowers nature park' },
-    { src: 'https://picsum.photos/seed/auli/600/400', alt: 'Ski resort in Auli during winter', hint: 'auli ski resort snow winter' },
-    { src: 'https://picsum.photos/seed/nainital/600/400', alt: 'Naini Lake in Nainital with boats', hint: 'nainital lake boats hill station' },
-    { src: 'https://picsum.photos/seed/kedarnath/600/400', alt: 'Kedarnath Temple surrounded by mountains', hint: 'kedarnath temple spiritual mountains' },
-     { src: 'https://picsum.photos/seed/mussoorie/600/400', alt: 'View from Mussoorie hill station', hint: 'mussoorie hill station viewpoint' },
-     { src: 'https://picsum.photos/seed/uttarakhand_culture/600/400', alt: 'Traditional Uttarakhand folk dance', hint: 'uttarakhand culture folk dance' },
+    { src: 'https://picsum.photos/seed/himalayan_peaks/600/400', alt: 'Snow-capped Himalayan peaks', hint: 'himalayas mountains' },
+    { src: 'https://picsum.photos/seed/ganga_rishikesh/600/400', alt: 'Ganga river flowing through Rishikesh', hint: 'rishikesh river' },
+    { src: 'https://picsum.photos/seed/mountain_roadtrip/600/400', alt: 'Scenic mountain road trip in Uttarakhand', hint: 'uttarakhand roadtrip' },
+    { src: 'https://picsum.photos/seed/kedarnath_temple/600/400', alt: 'Kedarnath Temple surrounded by mountains', hint: 'kedarnath temple' },
+    { src: 'https://picsum.photos/seed/nainital_lake_boats/600/400', alt: 'Naini Lake in Nainital with boats', hint: 'nainital lake' },
+    { src: 'https://picsum.photos/seed/uttarakhand_waterfall/600/400', alt: 'A beautiful waterfall in Uttarakhand', hint: 'uttarakhand waterfall' },
+    { src: 'https://picsum.photos/seed/pahadi_village_culture/600/400', alt: 'Traditional Pahadi village life', hint: 'pahadi village' },
+    { src: 'https://picsum.photos/seed/bageshwar_temple/600/400', alt: 'Ancient temple architecture in Uttarakhand', hint: 'ancient temple' },
   ];
 
   return (
@@ -31,7 +32,7 @@ export default function Home() {
       <section className="relative h-[60vh] min-h-[400px] w-full">
         {/* Use ClientImage for Hero as well */}
         <ClientImage
-          src="https://picsum.photos/1920/1080?random=hero"
+          src="https://placehold.co/1920x1080.png"
           alt="Scenic view of travel destinations"
           layout="fill"
           objectFit="cover"
