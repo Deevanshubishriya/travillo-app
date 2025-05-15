@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/auth-context'; // Import useAuth
-import { deleteCookie } from 'cookies-next'; // Import for deleting cookie
+// import { deleteCookie } from 'cookies-next'; // No longer needed here as AuthContext handles it
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,8 +26,7 @@ export function Header() {
   };
 
   const handleLogout = async () => {
-    await logout();
-    deleteCookie('travillo-session', { path: '/' }); // Remove the session cookie on logout
+    await logout(); // AuthContext's logout handles Firebase signOut and cookie deletion
     router.push('/'); // Redirect to home page after logout
   };
 
@@ -90,3 +89,5 @@ export function Header() {
     </header>
   );
 }
+
+    
