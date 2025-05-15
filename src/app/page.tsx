@@ -17,14 +17,14 @@ import { ItineraryPlanner } from '@/components/itinerary-planner'; // Import the
 
 export default function Home() {
   const galleryImages = [
-    { src: 'https://picsum.photos/seed/himalayan_peaks_gallery/600/400', alt: 'Snow-capped Himalayan peaks', hint: 'uttarakhand himalayas' },
-    { src: 'https://picsum.photos/seed/ganga_rishikesh_gallery/600/400', alt: 'Ganga river flowing through Rishikesh', hint: 'rishikesh river' },
-    { src: 'https://picsum.photos/seed/uttarakhand_roadtrip_gallery/600/400', alt: 'Scenic mountain road trip in Uttarakhand', hint: 'uttarakhand roadtrip' },
-    { src: 'https://picsum.photos/seed/kedarnath_temple_gallery/600/400', alt: 'Kedarnath Temple surrounded by mountains', hint: 'kedarnath temple' },
-    { src: 'https://picsum.photos/seed/nainital_lake_boats_gallery/600/400', alt: 'Naini Lake in Nainital with boats', hint: 'nainital lake' },
-    { src: 'https://picsum.photos/seed/uttarakhand_waterfall_gallery/600/400', alt: 'A beautiful waterfall in Uttarakhand', hint: 'uttarakhand waterfall' },
-    { src: 'https://picsum.photos/seed/pahadi_village_culture_gallery/600/400', alt: 'Traditional Pahadi village life', hint: 'pahadi village' },
-    { src: 'https://picsum.photos/seed/bageshwar_temple_gallery/600/400', alt: 'Ancient temple architecture in Uttarakhand', hint: 'ancient temple' },
+    { src: 'https://picsum.photos/seed/himalayan_peaks_gallery/600/400', alt: 'Snow-capped Himalayan peaks', hint: 'himalayan peaks mountain region' },
+    { src: 'https://picsum.photos/seed/ganga_rishikesh_gallery/600/400', alt: 'Ganga river flowing through Rishikesh', hint: 'rishikesh river forest region' },
+    { src: 'https://picsum.photos/seed/uttarakhand_roadtrip_gallery/600/400', alt: 'Scenic mountain road trip in Uttarakhand', hint: 'mountain roadtrip uttarakhand region' },
+    { src: 'https://picsum.photos/seed/kedarnath_temple_gallery/600/400', alt: 'Kedarnath Temple surrounded by mountains', hint: 'kedarnath temple mountain region' },
+    { src: 'https://picsum.photos/seed/nainital_lake_boats_gallery/600/400', alt: 'Naini Lake in Nainital with boats', hint: 'nainital lake forest region' },
+    { src: 'https://picsum.photos/seed/uttarakhand_waterfall_gallery/600/400', alt: 'A beautiful waterfall in Uttarakhand', hint: 'waterfall forest region uttarakhand' },
+    { src: 'https://picsum.photos/seed/pahadi_village_culture_gallery/600/400', alt: 'Traditional Pahadi village life', hint: 'pahadi village mountain region' },
+    { src: 'https://picsum.photos/seed/bageshwar_temple_gallery/600/400', alt: 'Ancient temple architecture in Uttarakhand', hint: 'ancient temple forest region' },
   ];
 
   return (
@@ -32,7 +32,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[400px] w-full">
         <ClientImage
-          src="https://picsum.photos/seed/homepage_hero/1920/1080"
+          src="https://placehold.co/1920x1080.png"
           alt="Scenic travel background - Uttarakhand Himalayas"
           layout="fill"
           objectFit="cover"
