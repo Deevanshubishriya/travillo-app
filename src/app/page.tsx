@@ -32,13 +32,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[400px] w-full">
         <ClientImage
-          src="https://placehold.co/1920x1080.png"
-          alt="Scenic travel background - Uttarakhand Himalayas"
+          src="https://picsum.photos/1920/1080?random=hero"
+          alt="Scenic view of travel destinations"
           layout="fill"
           objectFit="cover"
           quality={80}
           className="absolute inset-0 z-0 brightness-75"
-          data-ai-hint="travel background mountains"
+          data-ai-hint="travel landscape scenic view panoramic"
           priority
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
