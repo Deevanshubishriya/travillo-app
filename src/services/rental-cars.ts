@@ -1,3 +1,4 @@
+
 /**
  * Represents a vehicle available for rent.
  */
@@ -22,6 +23,10 @@ export interface Vehicle {
    * AI hint for image generation.
    */
   dataAiHint: string;
+  /**
+   * Capacity of the vehicle (e.g., "4 Seater", "7 Seater").
+   */
+  capacity?: string;
 }
 
 /**
@@ -60,49 +65,57 @@ export async function findAvailableVehicles(criteria: VehicleSearchCriteria): Pr
 
   // Simulate API response - return different vehicles based on simple criteria matching
   // In a real app, this logic would be on the server/API side.
+  // Vehicles updated to be more representative of haridwartaxirental.com
   const allVehicles: Vehicle[] = [
      {
       id: '1',
-      model: 'Maruti Suzuki Swift',
-      dailyRate: 2200,
-      imageUrl: `https://picsum.photos/seed/swift/400/300`, // Use model name as seed
-      dataAiHint: 'compact hatchback car silver'
+      model: 'Maruti Suzuki Dzire', // Common sedan
+      dailyRate: 2500,
+      imageUrl: `https://placehold.co/400x300.png`,
+      dataAiHint: 'sedan car white',
+      capacity: '4 Seater'
     },
     {
       id: '2',
-      model: 'Hyundai Creta',
-      dailyRate: 3000,
-       imageUrl: `https://picsum.photos/seed/creta/400/300`,
-      dataAiHint: 'suv compact white'
+      model: 'Toyota Innova Crysta', // Common MUV/SUV
+      dailyRate: 4500,
+       imageUrl: `https://placehold.co/400x300.png`,
+      dataAiHint: 'suv car silver',
+      capacity: '6-7 Seater'
     },
     {
       id: '3',
-      model: 'Mahindra Thar',
+      model: 'Mahindra Marazzo', // MUV
       dailyRate: 3800,
-      imageUrl: `https://picsum.photos/seed/thar/400/300`,
-      dataAiHint: 'offroad suv jeep black'
+      imageUrl: `https://placehold.co/400x300.png`,
+      dataAiHint: 'muv car blue',
+      capacity: '7 Seater'
     },
     {
       id: '4',
-      model: 'Toyota Innova Crysta',
-      dailyRate: 4500,
-       imageUrl: `https://picsum.photos/seed/innova/400/300`,
-      dataAiHint: 'mpv family car grey'
+      model: 'Tempo Traveller', // Van
+      dailyRate: 6000,
+       imageUrl: `https://placehold.co/400x300.png`,
+      dataAiHint: 'tempo traveller van',
+      capacity: '12 Seater'
     },
      {
       id: '5',
-      model: 'Tata Nexon EV',
-      dailyRate: 3200,
-      imageUrl: `https://picsum.photos/seed/nexon/400/300`,
-      dataAiHint: 'electric suv blue compact'
+      model: 'Honda Amaze', // Another common sedan
+      dailyRate: 2700,
+      imageUrl: `https://placehold.co/400x300.png`,
+      dataAiHint: 'sedan car red',
+      capacity: '4 Seater'
+    },
+    {
+      id: '6',
+      model: 'Maruti Suzuki Ertiga', // Common MUV
+      dailyRate: 3500,
+      imageUrl: `https://placehold.co/400x300.png`,
+      dataAiHint: 'muv car grey',
+      capacity: '7 Seater'
     },
   ];
-
-  // Simple filter simulation (e.g., return fewer cars for certain locations)
-  if (criteria.pickupLocation.toLowerCase().includes('remote')) {
-     // Simulate fewer options for remote locations
-     return allVehicles.filter(v => v.model.includes('Mahindra') || v.model.includes('Toyota'));
-  }
 
   // Simulate finding no vehicles if dates are too close
   const dayDiff = (criteria.dropoffDate.getTime() - criteria.pickupDate.getTime()) / (1000 * 3600 * 24);

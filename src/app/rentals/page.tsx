@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
-import { Calendar as CalendarIcon, Car, Search, Loader2, ExternalLink } from 'lucide-react';
+import { Calendar as CalendarIcon, Car, Search, Loader2, ExternalLink, Users } from 'lucide-react';
 import { ClientImage } from '@/components/client-image'; // Import the client component
 import { useToast } from '@/hooks/use-toast'; // Use the toast hook
 
@@ -87,7 +87,7 @@ export default function RentalsPage() {
     <div className="container py-12 md:py-16">
       <h1 className="mb-8 text-center text-4xl font-bold text-primary">Find Your Ride</h1>
       <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
-        Enter your trip details to find available vehicles for your next adventure with Travillo.
+        Enter your trip details to find available vehicles for your next adventure. Bookings are managed through our trusted partner.
       </p>
 
       {/* Search Form Card */}
@@ -199,15 +199,12 @@ export default function RentalsPage() {
               <Card key={vehicle.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] flex flex-col">
                 <CardHeader className="p-0">
                    <div className="relative h-48 w-full bg-muted">
-                     {/* Use ClientImage wrapper */}
                      <ClientImage
-                       // Use placeholder if imageUrl is invalid or missing, seed with ID for consistency
-                       src={vehicle.imageUrl || `https://picsum.photos/seed/${vehicle.id}/400/300`}
+                       src={vehicle.imageUrl}
                        alt={vehicle.model}
                        layout="fill"
                        objectFit="cover"
                        data-ai-hint={vehicle.dataAiHint || 'rental car vehicle'}
-                       // Fallback handled within ClientImage
                      />
                    </div>
                 </CardHeader>
@@ -215,21 +212,25 @@ export default function RentalsPage() {
                    <CardTitle className="mb-2 text-xl text-primary flex items-center">
                      <Car className="h-5 w-5 mr-2 text-accent"/> {vehicle.model}
                    </CardTitle>
+                   {vehicle.capacity && (
+                    <div className="flex items-center text-sm text-muted-foreground mb-2">
+                        <Users className="h-4 w-4 mr-1.5 text-muted-foreground" />
+                        {vehicle.capacity}
+                    </div>
+                   )}
                   <CardDescription className="text-lg font-medium text-secondary-foreground">
                     ₹{vehicle.dailyRate.toLocaleString()}/day
                   </CardDescription>
                    <p className="text-xs text-muted-foreground mt-2">
-                     Booking via external provider.
+                     Booking via Haridwar Taxi Rental.
                    </p>
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
                   <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                     {/* Replace '#' with actual booking link if available from API */}
-                     <a href="#" target="_blank" rel="noopener noreferrer">
-                        Book Now <ExternalLink className="ml-2 h-4 w-4"/>
+                     <a href="https://haridwartaxirental.com/" target="_blank" rel="noopener noreferrer">
+                        Book on Haridwar Taxi Rental <ExternalLink className="ml-2 h-4 w-4"/>
                      </a>
                   </Button>
-                   {/* Note: This button would typically link to an external booking site */}
                 </CardFooter>
               </Card>
             ))}
