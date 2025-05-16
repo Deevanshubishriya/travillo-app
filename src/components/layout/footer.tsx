@@ -1,14 +1,14 @@
 
 import Link from 'next/link';
-import { Mountain, Mail, Phone, Linkedin, Twitter, Instagram, Youtube, Github } from 'lucide-react';
+import { Mountain, Mail, Phone, Linkedin, Twitter, Instagram, Youtube, Github, Users } from 'lucide-react';
 
 export function Footer() {
   return (
     <footer className="border-t bg-muted text-muted-foreground py-10 md:py-16">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12"> {/* Adjusted lg:grid-cols for fewer columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12">
           {/* Column 1: Travillo Info */}
-          <div className="lg:col-span-1"> {/* Adjusted span */}
+          <div className="lg:col-span-1">
             <div className="flex items-center mb-3">
               <Mountain className="h-7 w-7 text-primary mr-2" />
               <h3 className="text-xl font-bold text-primary">Travillo</h3>
@@ -21,14 +21,17 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Column 2: Places */}
+          {/* Column 2: Founders */}
           <div>
-            <h4 className="text-lg font-semibold text-foreground mb-4">Places To Visit</h4>
-            <nav className="flex flex-col space-y-2 text-sm">
-              <Link href="/cultural-experiences" className="hover:text-primary transition-colors">Cultural Experiences</Link>
-              <Link href="/honeymoon-places" className="hover:text-primary transition-colors">Honeymoon Places</Link>
-              <Link href="/adventure-travel" className="hover:text-primary transition-colors">Adventure Travel</Link>
-            </nav>
+            <h4 className="text-lg font-semibold text-foreground mb-4 flex items-center">
+              <Users className="w-5 h-5 mr-2 text-accent" /> Founders
+            </h4>
+            <div className="flex flex-col space-y-1 text-sm">
+              <p>Deevanshu Bishriya</p>
+              <p>Ayush Kumar Verma</p>
+              <p>Himanshu Singh</p>
+              <p>Priyanshu Tiwari</p>
+            </div>
           </div>
 
           {/* Column 3: Support */}
