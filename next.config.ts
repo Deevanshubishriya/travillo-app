@@ -41,6 +41,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      { // Allow hits.sh for visitor badges
+        protocol: 'https',
+        hostname: 'hits.sh',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
