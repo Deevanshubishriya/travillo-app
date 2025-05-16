@@ -16,9 +16,9 @@ import {
 
 export default function Home() {
   const galleryImages = [
-    { src: 'https://picsum.photos/seed/himalayan_peaks_gallery/600/400', alt: 'Snow-capped Himalayan peaks', dataAiHint: 'himalayan peaks mountain region' },
-    { src: 'https://picsum.photos/seed/ganga_rishikesh_gallery/600/400', alt: 'Ganga river flowing through Rishikesh', dataAiHint: 'rishikesh river forest region' },
-    { src: 'https://picsum.photos/seed/uttarakhand_roadtrip_gallery/600/400', alt: 'Scenic mountain road trip in Uttarakhand', dataAiHint: 'mountain roadtrip uttarakhand region' },
+    { src: 'https://source.unsplash.com/600x400/?himalayas,mountains,snow', alt: 'Snow-capped Himalayan peaks', dataAiHint: 'himalayan peaks mountain snow' },
+    { src: 'https://source.unsplash.com/600x400/?rishikesh,ganges,river', alt: 'Ganga river flowing through Rishikesh', dataAiHint: 'rishikesh ganges river' },
+    { src: 'https://source.unsplash.com/600x400/?uttarakhand,road,mountains', alt: 'Scenic mountain road trip in Uttarakhand', dataAiHint: 'uttarakhand road mountains' },
     { src: 'https://picsum.photos/seed/kedarnath_temple_gallery/600/400', alt: 'Kedarnath Temple surrounded by mountains', dataAiHint: 'kedarnath temple mountain region' },
     { src: 'https://picsum.photos/seed/nainital_lake_boats_gallery/600/400', alt: 'Naini Lake in Nainital with boats', dataAiHint: 'nainital lake forest region' },
     { src: 'https://picsum.photos/seed/uttarakhand_waterfall_gallery/600/400', alt: 'A beautiful waterfall in Uttarakhand', dataAiHint: 'waterfall forest region uttarakhand' },
