@@ -8,7 +8,7 @@ import { Footer } from '@/components/layout/footer';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AuthProvider } from '@/context/auth-context';
-import Script from 'next/script'; // Added back
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Travillo - Discover Hidden Gems',
@@ -42,18 +42,11 @@ export default function RootLayout({
             <Toaster />
           </AuthProvider>
         </ThemeProvider>
-        {/* Attempting to load Leaflet JS globally from layout */}
+        {/* Load Leaflet JS globally. LeafletMap component will check for window.L */}
         <Script
           src="https://unpkg.com/leaflet/dist/leaflet.js"
           strategy="lazyOnload"
-          onLoad={() => {
-            console.log('Leaflet JS loaded successfully via layout.');
-            // Note: This approach for notifying components can be unreliable.
-            // LeafletMap component will check for window.L.
-          }}
-          onError={(e) => {
-            console.error('Failed to load Leaflet JS via layout:', e);
-          }}
+          // Removed onLoad and onError to prevent error with Server Components
         />
       </body>
     </html>
