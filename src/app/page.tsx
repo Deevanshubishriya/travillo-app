@@ -2,14 +2,29 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Car, Hotel, MessageSquare, Route } from 'lucide-react'; // Added Route
+import { MapPin, Car, Hotel, MessageSquare, Route, Camera } from 'lucide-react'; // Added Camera
 import { ClientImage } from '@/components/client-image';
 import { FeedbackForm } from '@/components/feedback-form';
 import { ItineraryPlanner } from '@/components/itinerary-planner';
-import FlipsterGallery from '@/components/flipster-gallery'; // Import the new gallery
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"; // Import ShadCN Carousel
 
 export default function Home() {
-  // Old galleryImages array is removed as FlipsterGallery manages its own images
+  const galleryImages = [
+    { src: 'https://picsum.photos/seed/himalayan_peaks_gallery/600/400', alt: 'Snow-capped Himalayan peaks', dataAiHint: 'himalayan peaks mountain region' },
+    { src: 'https://picsum.photos/seed/ganga_rishikesh_gallery/600/400', alt: 'Ganga river flowing through Rishikesh', dataAiHint: 'rishikesh river forest region' },
+    { src: 'https://picsum.photos/seed/uttarakhand_roadtrip_gallery/600/400', alt: 'Scenic mountain road trip in Uttarakhand', dataAiHint: 'mountain roadtrip uttarakhand region' },
+    { src: 'https://picsum.photos/seed/kedarnath_temple_gallery/600/400', alt: 'Kedarnath Temple surrounded by mountains', dataAiHint: 'kedarnath temple mountain region' },
+    { src: 'https://picsum.photos/seed/nainital_lake_boats_gallery/600/400', alt: 'Naini Lake in Nainital with boats', dataAiHint: 'nainital lake forest region' },
+    { src: 'https://picsum.photos/seed/uttarakhand_waterfall_gallery/600/400', alt: 'A beautiful waterfall in Uttarakhand', dataAiHint: 'waterfall forest region uttarakhand' },
+    { src: 'https://picsum.photos/seed/pahadi_village_culture_gallery/600/400', alt: 'Traditional Pahadi village life', dataAiHint: 'pahadi village mountain region' },
+    { src: 'https://picsum.photos/seed/bageshwar_temple_gallery/600/400', alt: 'Ancient temple architecture in Uttarakhand', dataAiHint: 'ancient temple forest region' },
+  ];
 
   return (
     <>
@@ -72,8 +87,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* New Flipster Gallery Section */}
-      <FlipsterGallery />
+      {/* New ShadCN Carousel Gallery Section */}
+      <section id="gallery" className="py-16 md:py-24 bg-muted/50">
+        <div className="container">
+          <h2 className="mb-12 text-center text-3xl font-bold text-primary flex items-center justify-center gap-3">
+            <Camera className="h-8 w-8 text-accent"/> Glimpses of Our Destinations
+          </h2>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full max-w-4xl mx-auto"
+          >
+            <CarouselContent>
+              {galleryImages.map((image, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1">
+                    <Card className="overflow-hidden shadow-md">
+                      <CardContent className="flex aspect-square items-center justify-center p-0">
+                        <div className="relative w-full h-full">
+                          <ClientImage
+                            src={image.src}
+                            alt={image.alt}
+                            layout="fill"
+                            objectFit="cover"
+                            quality={75}
+                            data-ai-hint={image.dataAiHint}
+                            className="transition-opacity duration-300"
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-[-50px] sm:left-[-60px]" /> {/* Adjust positioning for larger screens */}
+            <CarouselNext className="right-[-50px] sm:right-[-60px]" /> {/* Adjust positioning for larger screens */}
+          </Carousel>
+          <div className="mt-12 text-center">
+            <Link href="/locations">
+              <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                Explore More Locations
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Itinerary Planner Section */}
       <section id="itinerary-planner" className="py-16 md:py-24 bg-background">
