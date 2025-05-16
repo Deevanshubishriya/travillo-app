@@ -1,8 +1,8 @@
 
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import Script from 'next/script'; // Import next/script
+import React, { useEffect, useRef } from 'react';
+// Script import removed, as layout is now responsible for loading Leaflet JS
 
 interface LeafletMapProps {
   latitude: number;
@@ -14,7 +14,7 @@ interface LeafletMapProps {
 
 declare global {
   interface Window {
-    L: any;
+    L: any; // Leaflet's global object
   }
 }
 
@@ -26,12 +26,11 @@ const LeafletMap: React.FC<LeafletMapProps> = ({
   locationName
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<any>(null);
-  const [isLeafletScriptLoaded, setIsLeafletScriptLoaded] = useState(false);
+  const mapInstanceRef = useRef<any>(null); // To hold the map instance
 
   useEffect(() => {
-    // This effect now only runs when the script is loaded and map needs initialization/update
-    if (isLeafletScriptLoaded && typeof window.L !== 'undefined' && mapContainerRef.current) {
+    // Ensure Leaflet is loaded (window.L exists) and map container ref is available
+    if (typeof window.L !== 'undefined' && mapContainerRef.current) {
       if (!mapInstanceRef.current) { // Initialize map only once
         const map = window.L.map(mapContainerRef.current).setView([latitude, longitude], zoom);
         mapInstanceRef.current = map;
@@ -45,10 +44,27 @@ const LeafletMap: React.FC<LeafletMapProps> = ({
           .addTo(map)
           .bindPopup(finalPopupText)
           .openPopup();
-      } else { // If map instance exists, just update its view (e.g., if props change)
+      } else {
+        // If map instance exists, just update its view
         mapInstanceRef.current.setView([latitude, longitude], zoom);
-        // Potentially update marker and popup if necessary, though for this use case, setView might be enough.
+        // Update marker popup content if necessary
+        const layers = mapInstanceRef.current._layers;
+        for (const key in layers) {
+            if (layers[key] instanceof window.L.Marker) {
+                const finalPopupText = popupText || locationName || `Location at ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+                layers[key].setPopupContent(finalPopupText);
+                // Optionally re-open popup if it was closed and content might have changed
+                // if (!layers[key].isPopupOpen()) {
+                //   layers[key].openPopup();
+                // }
+                break; 
+            }
+        }
       }
+    } else if (!mapContainerRef.current) {
+        console.warn("LeafletMap: mapContainerRef.current is null. Map cannot be initialized yet.");
+    } else if (typeof window.L === 'undefined') {
+        console.warn("LeafletMap: window.L (Leaflet) is not defined. Ensure Leaflet JS is loaded globally, typically in layout.tsx.");
     }
 
     // Cleanup function to remove map on component unmount
@@ -58,27 +74,14 @@ const LeafletMap: React.FC<LeafletMapProps> = ({
         mapInstanceRef.current = null;
       }
     };
-  }, [isLeafletScriptLoaded, latitude, longitude, zoom, popupText, locationName]);
+  }, [latitude, longitude, zoom, popupText, locationName]); // Rerun effect if these props change
 
-  if (!isLeafletScriptLoaded) {
+  // Conditional rendering based on Leaflet library availability
+  if (typeof window.L === 'undefined') {
     return (
-      <>
-        <Script
-          src="https://unpkg.com/leaflet/dist/leaflet.js"
-          strategy="lazyOnload"
-          onLoad={() => {
-            console.log('Leaflet JS loaded successfully via LeafletMap component.');
-            setIsLeafletScriptLoaded(true);
-          }}
-          onError={(e) => {
-            console.error('Failed to load Leaflet JS via LeafletMap component:', e);
-            // Potentially set an error state here to show a message to the user
-          }}
-        />
-        <div style={{ height: '400px', width: '100%' }} className="flex items-center justify-center bg-muted rounded-md">
-          <p className="text-muted-foreground">Loading map...</p>
-        </div>
-      </>
+      <div style={{ height: '400px', width: '100%' }} className="flex items-center justify-center bg-muted rounded-md">
+        <p className="text-muted-foreground">Loading map library...</p>
+      </div>
     );
   }
 
