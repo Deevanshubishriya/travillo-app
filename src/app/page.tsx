@@ -22,7 +22,7 @@ export default function Home() {
     { src: 'https://picsum.photos/seed/kedarnath_temple_gallery/600/400', alt: 'Kedarnath Temple surrounded by mountains', dataAiHint: 'kedarnath temple mountain region' },
     { src: 'https://picsum.photos/seed/nainital_lake_boats_gallery/600/400', alt: 'Naini Lake in Nainital with boats', dataAiHint: 'nainital lake forest region' },
     { src: 'https://picsum.photos/seed/uttarakhand_waterfall_gallery/600/400', alt: 'A beautiful waterfall in Uttarakhand', dataAiHint: 'waterfall forest region uttarakhand' },
-    { src: 'https://picsum.photos/seed/pahadi_village_culture_gallery/600/400', alt: 'Traditional Pahadi village life', dataAiHint: 'pahadi village mountain region' },
+    { src: '/images/gallery/uttarakhand_village_terraces.jpg', alt: 'Picturesque Uttarakhand village with terraced fields', dataAiHint: 'uttarakhand village agriculture' },
     { src: 'https://picsum.photos/seed/bageshwar_temple_gallery/600/400', alt: 'Ancient temple architecture in Uttarakhand', dataAiHint: 'ancient temple forest region' },
   ];
 
