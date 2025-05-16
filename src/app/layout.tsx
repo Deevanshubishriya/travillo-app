@@ -7,8 +7,8 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/components/theme-provider';
-import { AuthProvider } from '@/context/auth-context'; // Import AuthProvider
-
+import { AuthProvider } from '@/context/auth-context';
+import Script from 'next/script'; // Import next/script
 
 export const metadata: Metadata = {
   title: 'Travillo - Discover Hidden Gems',
@@ -23,6 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={GeistSans.variable} suppressHydrationWarning>
+      <head>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+      </head>
       <body className={cn('min-h-screen bg-background font-sans antialiased')}>
         <ThemeProvider
           attribute="class"
@@ -30,18 +33,25 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AuthProvider> {/* Wrap with AuthProvider */}
+          <AuthProvider>
             <div className="relative flex min-h-screen flex-col">
               <Header />
               <main className="flex-1">{children}</main>
               <Footer />
             </div>
             <Toaster />
-            
           </AuthProvider>
         </ThemeProvider>
-
-        {/* Botpress Webchat Script removed */}
+        <Script
+          src="https://unpkg.com/leaflet/dist/leaflet.js"
+          strategy="lazyOnload" // Load Leaflet JS after the page is interactive
+          onLoad={() => {
+            console.log('Leaflet JS loaded successfully.');
+          }}
+          onError={(e) => {
+            console.error('Failed to load Leaflet JS:', e);
+          }}
+        />
       </body>
     </html>
   );

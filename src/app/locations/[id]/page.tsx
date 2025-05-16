@@ -1,9 +1,10 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowLeft, MapPin, Car, Hotel, Map as MapIconLucide } from 'lucide-react'; // Renamed Map to MapIconLucide to avoid conflict
+import { ArrowLeft, MapPin, Car, Hotel, Map as MapIconLucide } from 'lucide-react';
 import { ClientImage } from '@/components/client-image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import LeafletMap from '@/components/leaflet-map'; // Import the LeafletMap component
 
 // Mock data function (replace with actual data fetching)
 async function getLocationDetails(id: string) {
@@ -32,12 +33,12 @@ async function getLocationDetails(id: string) {
 export default async function LocationDetailPage({ params }: { params: { id: string } }) {
   const location = await getLocationDetails(params.id);
 
-  if (location.id === 'not-found') {
+  if (location.id === 'not-found' || !location.coordinates) { // Also handle if coordinates are null from the start
     return (
         <div className="container py-12 md:py-16 text-center">
-            <h1 className="text-3xl font-bold text-destructive mb-4">{location.name}</h1>
+            <h1 className="text-3xl font-bold text-destructive mb-4">{location.name || 'Location Not Found'}</h1>
             <p className="text-lg text-muted-foreground mb-8">
-                {location.description}
+                {location.description || 'The requested location could not be found or map data is unavailable.'}
             </p>
              <Link href="/locations">
                  <Button variant="outline">
@@ -99,7 +100,7 @@ export default async function LocationDetailPage({ params }: { params: { id: str
         </div>
 
 
-        {/* Right Column: Map Placeholder */}
+        {/* Right Column: Map */}
         <div className="md:sticky md:top-24">
           <Card className="shadow-lg">
             <CardHeader>
@@ -108,9 +109,18 @@ export default async function LocationDetailPage({ params }: { params: { id: str
               </CardTitle>
             </CardHeader>
             <CardContent>
-               <div className="flex h-48 items-center justify-center p-4 bg-muted rounded-md">
-                 <p className="text-center text-muted-foreground">Map display is currently unavailable.</p>
-               </div>
+               {location.coordinates ? (
+                 <LeafletMap
+                    latitude={location.coordinates.lat}
+                    longitude={location.coordinates.lng}
+                    locationName={location.name}
+                    zoom={13} // Default zoom, can be adjusted
+                 />
+               ) : (
+                 <div className="flex h-96 items-center justify-center rounded-md bg-muted p-4">
+                   <p className="text-center text-muted-foreground">Map coordinates are not available for this location.</p>
+                 </div>
+               )}
                {location.coordinates && (
                  <p className="mt-2 text-xs text-muted-foreground text-center">
                    <a href={`https://www.google.com/maps?q=${location.coordinates.lat},${location.coordinates.lng}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
