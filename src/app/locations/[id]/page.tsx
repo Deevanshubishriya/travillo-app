@@ -12,7 +12,7 @@ async function getLocationDetails(id: string) {
   await new Promise(resolve => setTimeout(resolve, 100));
 
   const locations = [
-    { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: '/images/khirsuVillage.jpg', dataAiHint: 'Khirsu village serene Himalayas', coordinates: { lat: 30.1978, lng: 78.8798 } },
+    { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: '/images/khirsuVillage.jpg', dataAiHint: 'Khirsu village serene himalayas', coordinates: { lat: 30.1978, lng: 78.8798 } },
     { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and the highest Shiva temple in the world. A moderate trek suitable for most fitness levels.', imageUrl: '/image/Chopta-Tungnath2.jpg', dataAiHint: 'chopta trek', coordinates: { lat: 30.4851, lng: 79.3331 } },
     { id: '3', name: 'Binsar Wildlife Sanctuary', description: 'Home to diverse flora and fauna, perfect for nature lovers exploring dense forests and spotting wildlife.', imageUrl: '/image/binsar-wildlife-sanctuary2.jpg', dataAiHint: 'binsar sanctuary', coordinates: { lat: 29.6949, lng: 79.7534 } },
     { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground, showcasing unique geological formations.', imageUrl: '/image/patal-bhavanashavara2.jpg', dataAiHint: 'patal cave temple', coordinates: { lat: 29.7078, lng: 80.1050 } },
@@ -85,12 +85,16 @@ export default async function LocationDetailPage({ params }: { params: { id: str
             <div className="space-y-6">
                <h3 className="text-2xl font-semibold text-primary border-b pb-2">Plan Your Trip</h3>
                <div className="flex flex-col sm:flex-row gap-4">
-                   <Button variant="outline" className="w-full sm:w-auto">
-                      <Car className="mr-2 h-5 w-5" /> For Rentals, Call: +91 9368255528
+                 <Link href="/rentals">
+                   <Button variant="default" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
+                     <Car className="mr-2 h-5 w-5" /> Find Rentals
                    </Button>
-                   <Button variant="outline" className="w-full sm:w-auto">
-                      <Hotel className="mr-2 h-5 w-5" /> For Hotels, Call: +91 9368255528
+                 </Link>
+                 <Link href={`/hotels?location=${encodeURIComponent(location.name)}`}>
+                   <Button variant="default" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
+                     <Hotel className="mr-2 h-5 w-5" /> Find Hotels Nearby
                    </Button>
+                 </Link>
                </div>
             </div>
           </div>
