@@ -21,22 +21,23 @@ export default function RentalsPage() {
   const [dropoffLocation, setDropoffLocation] = useState('');
   const [pickupDate, setPickupDate] = useState<Date | undefined>();
   const [dropoffDate, setDropoffDate] = useState<Date | undefined>();
+  const [numberOfTravelers, setNumberOfTravelers] = useState<number | ''>('');
   const [availableVehicles, setAvailableVehicles] = useState<Vehicle[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchAttempted, setSearchAttempted] = useState(false);
-  const { toast } = useToast(); // Initialize toast
+  const { toast } = useToast();
 
 
   const handleSearch = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
     setSearchAttempted(true);
-    setAvailableVehicles([]); // Clear previous results
+    setAvailableVehicles([]);
 
     if (!pickupLocation || !dropoffLocation || !pickupDate || !dropoffDate) {
        toast({
         title: "Missing Information",
-        description: "Please fill in all fields to search for rentals.",
+        description: "Please fill in pick-up/drop-off locations and dates.",
         variant: "destructive",
       });
       setIsLoading(false);
@@ -53,12 +54,23 @@ export default function RentalsPage() {
        return;
      }
 
+     if (numberOfTravelers !== '' && Number(numberOfTravelers) <= 0) {
+        toast({
+            title: "Invalid Travelers",
+            description: "Number of travelers must be a positive number.",
+            variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+     }
+
 
     const criteria: VehicleSearchCriteria = {
       pickupLocation,
       dropoffLocation,
       pickupDate,
       dropoffDate,
+      numberOfTravelers: numberOfTravelers === '' ? undefined : Number(numberOfTravelers),
     };
 
     try {
@@ -67,7 +79,7 @@ export default function RentalsPage() {
        if (vehicles.length === 0) {
          toast({
            title: "No Vehicles Found",
-           description: "No vehicles match your criteria for the selected dates/locations.",
+           description: "No vehicles match your criteria for the selected dates, locations, or number of travelers.",
          });
        }
     } catch (error) {
@@ -90,14 +102,13 @@ export default function RentalsPage() {
         Enter your trip details to find available vehicles for your next adventure. Bookings are managed through our trusted partner.
       </p>
 
-      {/* Search Form Card */}
       <Card className="mb-12 shadow-md">
         <CardHeader>
           <CardTitle className="text-2xl text-primary">Search Rentals</CardTitle>
           <CardDescription>Fill in the details below to find available cars.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSearch} className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5 items-end">
+          <form onSubmit={handleSearch} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 items-end">
             <div className="space-y-1">
               <Label htmlFor="pickupLocation">Pick-up Location</Label>
               <Input
@@ -137,7 +148,7 @@ export default function RentalsPage() {
                     selected={pickupDate}
                     onSelect={setPickupDate}
                     initialFocus
-                    disabled={(date) => date < new Date(new Date().setHours(0,0,0,0))} // Disable past dates
+                    disabled={(date) => date < new Date(new Date().setHours(0,0,0,0))}
                   />
                 </PopoverContent>
               </Popover>
@@ -161,7 +172,7 @@ export default function RentalsPage() {
                     selected={dropoffDate}
                     onSelect={setDropoffDate}
                     initialFocus
-                     disabled={(date) => // Disable dates before today or before pickupDate
+                     disabled={(date) =>
                        date < new Date(new Date().setHours(0,0,0,0)) ||
                        (pickupDate ? date <= pickupDate : false)
                      }
@@ -170,8 +181,22 @@ export default function RentalsPage() {
               </Popover>
             </div>
 
+            <div className="space-y-1">
+              <Label htmlFor="numberOfTravelers" className="flex items-center">
+                <Users className="mr-1.5 h-4 w-4 text-muted-foreground" />
+                Number of Travelers
+              </Label>
+              <Input
+                id="numberOfTravelers"
+                type="number"
+                placeholder="e.g., 4"
+                value={numberOfTravelers}
+                onChange={(e) => setNumberOfTravelers(e.target.value === '' ? '' : Number(e.target.value))}
+                min="1"
+              />
+            </div>
 
-            <Button type="submit" disabled={isLoading} className="w-full lg:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
+            <Button type="submit" disabled={isLoading} className="w-full bg-accent text-accent-foreground hover:bg-accent/90 lg:mt-auto">
               {isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
@@ -183,7 +208,6 @@ export default function RentalsPage() {
         </CardContent>
       </Card>
 
-      {/* Results Section */}
       <div>
         <h2 className="mb-6 text-2xl font-semibold text-primary">Available Vehicles</h2>
         {isLoading ? (
@@ -192,7 +216,7 @@ export default function RentalsPage() {
              <span className="ml-3 text-muted-foreground">Searching for vehicles...</span>
            </div>
         ) : searchAttempted && availableVehicles.length === 0 ? (
-          <p className="text-center text-muted-foreground">No vehicles found matching your criteria. Try different locations or dates.</p>
+          <p className="text-center text-muted-foreground">No vehicles found matching your criteria. Try different locations, dates, or traveler numbers.</p>
         ) : availableVehicles.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {availableVehicles.map((vehicle) => (
@@ -212,10 +236,10 @@ export default function RentalsPage() {
                    <CardTitle className="mb-2 text-xl text-primary flex items-center">
                      <Car className="h-5 w-5 mr-2 text-accent"/> {vehicle.model}
                    </CardTitle>
-                   {vehicle.capacity && (
+                   {vehicle.maxCapacity && (
                     <div className="flex items-center text-sm text-muted-foreground mb-2">
                         <Users className="h-4 w-4 mr-1.5 text-muted-foreground" />
-                        {vehicle.capacity}
+                        Capacity: {vehicle.maxCapacity}
                     </div>
                    )}
                   <CardDescription className="text-lg font-medium text-secondary-foreground">
@@ -236,9 +260,10 @@ export default function RentalsPage() {
             ))}
           </div>
         ) : (
-           searchAttempted ? null : <p className="text-center text-muted-foreground">Enter your search criteria above to see available vehicles.</p> // Initial state message
+           searchAttempted ? null : <p className="text-center text-muted-foreground">Enter your search criteria above to see available vehicles.</p>
         )}
       </div>
     </div>
   );
 }
+

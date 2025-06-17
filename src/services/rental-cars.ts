@@ -24,9 +24,9 @@ export interface Vehicle {
    */
   dataAiHint: string;
   /**
-   * Capacity of the vehicle (e.g., "4 Seater", "7 Seater").
+   * Maximum passenger capacity of the vehicle.
    */
-  capacity?: string;
+  maxCapacity?: number;
 }
 
 /**
@@ -49,6 +49,10 @@ export interface VehicleSearchCriteria {
    * The dropoff date for the rental.
    */
   dropoffDate: Date;
+  /**
+   * Optional. The number of travelers for the rental.
+   */
+  numberOfTravelers?: number;
 }
 
 /**
@@ -59,73 +63,78 @@ export interface VehicleSearchCriteria {
  * @returns A promise that resolves to an array of Vehicle objects.
  */
 export async function findAvailableVehicles(criteria: VehicleSearchCriteria): Promise<Vehicle[]> {
-  console.log("Searching for vehicles with criteria:", criteria); // Log criteria for debugging
-  // Simulate API call delay
+  console.log("Searching for vehicles with criteria:", criteria);
   await new Promise(resolve => setTimeout(resolve, 1200));
 
-  // Simulate API response - return different vehicles based on simple criteria matching
-  // In a real app, this logic would be on the server/API side.
-  // Vehicles updated to be more representative of haridwartaxirental.com
   const allVehicles: Vehicle[] = [
      {
       id: '1',
-      model: 'Maruti Suzuki Dzire', // Common sedan
+      model: 'Maruti Suzuki Dzire',
       dailyRate: 2500,
       imageUrl: `https://placehold.co/400x300.png`,
       dataAiHint: 'sedan car white',
-      capacity: '4 Seater'
+      maxCapacity: 5
     },
     {
       id: '2',
-      model: 'Toyota Innova Crysta', // Common MUV/SUV
+      model: 'Toyota Innova Crysta',
       dailyRate: 4500,
        imageUrl: `https://placehold.co/400x300.png`,
       dataAiHint: 'suv car silver',
-      capacity: '6-7 Seater'
+      maxCapacity: 7
     },
     {
       id: '3',
-      model: 'Mahindra Marazzo', // MUV
+      model: 'Mahindra Marazzo',
       dailyRate: 3800,
       imageUrl: `https://placehold.co/400x300.png`,
       dataAiHint: 'muv car blue',
-      capacity: '7 Seater'
+      maxCapacity: 8
     },
     {
       id: '4',
-      model: 'Tempo Traveller', // Van
+      model: 'Tempo Traveller',
       dailyRate: 6000,
        imageUrl: `https://placehold.co/400x300.png`,
       dataAiHint: 'tempo traveller van',
-      capacity: '12 Seater'
+      maxCapacity: 12
     },
      {
       id: '5',
-      model: 'Honda Amaze', // Another common sedan
+      model: 'Honda Amaze',
       dailyRate: 2700,
       imageUrl: `https://placehold.co/400x300.png`,
       dataAiHint: 'sedan car red',
-      capacity: '4 Seater'
+      maxCapacity: 5
     },
     {
       id: '6',
-      model: 'Maruti Suzuki Ertiga', // Common MUV
+      model: 'Maruti Suzuki Ertiga',
       dailyRate: 3500,
       imageUrl: `https://placehold.co/400x300.png`,
       dataAiHint: 'muv car grey',
-      capacity: '7 Seater'
+      maxCapacity: 7
     },
   ];
 
-  // Simulate finding no vehicles if dates are too close
   const dayDiff = (criteria.dropoffDate.getTime() - criteria.pickupDate.getTime()) / (1000 * 3600 * 24);
-  if (dayDiff < 1) { // Less than 1 day rental not allowed in simulation
+  if (dayDiff < 1) {
     return [];
   }
 
+  let filteredVehicles = allVehicles;
 
-  // Default: return a subset for variety, simulating availability
-  // Sort randomly and take a slice
-  const shuffled = allVehicles.sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, Math.floor(Math.random() * (allVehicles.length - 1)) + 2); // Return 2 to all vehicles
+  if (criteria.numberOfTravelers && criteria.numberOfTravelers > 0) {
+    filteredVehicles = filteredVehicles.filter(vehicle =>
+      vehicle.maxCapacity && vehicle.maxCapacity >= criteria.numberOfTravelers!
+    );
+  }
+
+  const shuffled = filteredVehicles.sort(() => 0.5 - Math.random());
+  if (criteria.numberOfTravelers && criteria.numberOfTravelers > 0) {
+      // If travelers filter is active, return all matches or a subset if too many
+      return shuffled.slice(0, Math.max(2, Math.floor(Math.random() * shuffled.length) +1 ));
+  }
+
+  return shuffled.slice(0, Math.floor(Math.random() * (allVehicles.length - 1)) + 2);
 }
