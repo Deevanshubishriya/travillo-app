@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
-import { Calendar as CalendarIcon, Car, Search, Loader2, ExternalLink, Users } from 'lucide-react';
+import { Calendar as CalendarIcon, Car, Search, Loader2, Users, Phone } from 'lucide-react'; // Added Phone, removed ExternalLink
 import { ClientImage } from '@/components/client-image'; // Import the client component
 import { useToast } from '@/hooks/use-toast'; // Use the toast hook
 
@@ -99,7 +99,7 @@ export default function RentalsPage() {
     <div className="container py-12 md:py-16">
       <h1 className="mb-8 text-center text-4xl font-bold text-primary">Find Your Ride</h1>
       <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
-        Enter your trip details to find available vehicles for your next adventure. Bookings are managed through our trusted partner.
+        Enter your trip details to find available vehicles for your next adventure. Contact us directly for booking.
       </p>
 
       <Card className="mb-12 shadow-md">
@@ -246,14 +246,12 @@ export default function RentalsPage() {
                     ₹{vehicle.dailyRate.toLocaleString()}/day
                   </CardDescription>
                    <p className="text-xs text-muted-foreground mt-2">
-                     Booking via Haridwar Taxi Rental.
+                     Contact us for booking details.
                    </p>
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
-                  <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                     <a href="https://haridwartaxirental.com/" target="_blank" rel="noopener noreferrer">
-                        Book on Haridwar Taxi Rental <ExternalLink className="ml-2 h-4 w-4"/>
-                     </a>
+                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                     <Phone className="mr-2 h-4 w-4"/> Contact: +91 9368255528
                   </Button>
                 </CardFooter>
               </Card>
@@ -266,4 +264,3 @@ export default function RentalsPage() {
     </div>
   );
 }
-
