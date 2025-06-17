@@ -12,16 +12,16 @@ async function getLocationDetails(id: string) {
   await new Promise(resolve => setTimeout(resolve, 100));
 
   const locations = [
-    { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: '/images/khirsuVillage.jpg', dataAiHint: 'khirsu village himalayas', coordinates: { lat: 30.1978, lng: 78.8798 } },
-    { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and the highest Shiva temple in the world. A moderate trek suitable for most fitness levels.', imageUrl: 'https://picsum.photos/seed/chopta_detail/800/500', dataAiHint: 'chopta trek', coordinates: { lat: 30.4851, lng: 79.3331 } },
-    { id: '3', name: 'Binsar Wildlife Sanctuary', description: 'Home to diverse flora and fauna, perfect for nature lovers exploring dense forests and spotting wildlife.', imageUrl: 'https://picsum.photos/seed/binsar_detail/800/500', dataAiHint: 'binsar sanctuary', coordinates: { lat: 29.6949, lng: 79.7534 } },
-    { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground, showcasing unique geological formations.', imageUrl: 'https://picsum.photos/seed/patal_detail/800/500', dataAiHint: 'patal cave temple', coordinates: { lat: 29.7078, lng: 80.1050 } },
-    { id: '5', name: 'Munsiyari', description: 'A picturesque hamlet offering stunning, clear views of the majestic Panchachuli peaks.', imageUrl: 'https://picsum.photos/seed/munsiyari_detail/800/500', dataAiHint: 'munsiyari panchachuli', coordinates: { lat: 30.0667, lng: 80.2333 } },
-    { id: '6', name: 'Dodital Lake Trek', description: 'A beautiful freshwater high-altitude lake surrounded by dense forests, requiring a moderate trek.', imageUrl: 'https://picsum.photos/seed/dodital_detail/800/500', dataAiHint: 'dodital lake forest', coordinates: { lat: 30.8373, lng: 78.4777 } },
-    { id: '7', name: 'Lansdowne', description: 'A quiet cantonment town known for its colonial charm and surrounding oak and pine forests. Visit the War Memorial and St. Mary\'s Church.', imageUrl: 'https://picsum.photos/seed/lansdowne_detail/800/500', dataAiHint: 'lansdowne colonial', coordinates: { lat: 29.8378, lng: 78.6865 } },
-    { id: '8', name: 'Mukteshwar', description: 'Famous for the Mukteshwar Dham temple perched atop a cliff, offering stunning Himalayan panoramas and lush fruit orchards.', imageUrl: 'https://picsum.photos/seed/mukteshwar_detail/800/500', dataAiHint: 'mukteshwar temple view', coordinates: { lat: 29.4722, lng: 79.6479 } },
-    { id: '9', name: 'Chakrata', description: 'A secluded hill station offering pristine natural beauty, Tiger Falls, and opportunities for trekking and exploration.', imageUrl: 'https://picsum.photos/seed/chakrata_detail/800/500', dataAiHint: 'chakrata tiger falls', coordinates: { lat: 30.7026, lng: 77.8694 } },
-    { id: '10', name: 'Pauri', description: 'A district headquarters town offering panoramic views of snow-clad Himalayan peaks like Banderpunch, Swargarohini, and Gangotri group.', imageUrl: 'https://picsum.photos/seed/pauri_detail/800/500', dataAiHint: 'pauri himalayan peaks', coordinates: { lat: 30.1498, lng: 78.7748 } },
+    { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: '/images/khirsuVillage.jpg', dataAiHint: 'Khirsu village serene Himalayas', coordinates: { lat: 30.1978, lng: 78.8798 } },
+    { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and the highest Shiva temple in the world. A moderate trek suitable for most fitness levels.', imageUrl: '/image/Chopta-Tungnath2.jpg', dataAiHint: 'chopta trek', coordinates: { lat: 30.4851, lng: 79.3331 } },
+    { id: '3', name: 'Binsar Wildlife Sanctuary', description: 'Home to diverse flora and fauna, perfect for nature lovers exploring dense forests and spotting wildlife.', imageUrl: '/image/binsar-wildlife-sanctuary2.jpg', dataAiHint: 'binsar sanctuary', coordinates: { lat: 29.6949, lng: 79.7534 } },
+    { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground, showcasing unique geological formations.', imageUrl: '/image/patal-bhavanashavara2.jpg', dataAiHint: 'patal cave temple', coordinates: { lat: 29.7078, lng: 80.1050 } },
+    { id: '5', name: 'Munsiyari', description: 'A picturesque hamlet offering stunning, clear views of the majestic Panchachuli peaks.', imageUrl: '/image/munsiyari2.jpg', dataAiHint: 'munsiyari panchachuli', coordinates: { lat: 30.0667, lng: 80.2333 } },
+    { id: '6', name: 'Dodital Lake Trek', description: 'A beautiful freshwater high-altitude lake surrounded by dense forests, requiring a moderate trek.', imageUrl: '/image/Dodital2.jpg', dataAiHint: 'dodital lake forest', coordinates: { lat: 30.8373, lng: 78.4777 } },
+    { id: '7', name: 'Lansdowne', description: 'A quiet cantonment town known for its colonial charm and surrounding oak and pine forests. Visit the War Memorial and St. Mary\'s Church.', imageUrl: '/image/Dodital2.jpg', dataAiHint: 'lansdowne colonial', coordinates: { lat: 29.8378, lng: 78.6865 } },
+    { id: '8', name: 'Mukteshwar', description: 'Famous for the Mukteshwar Dham temple perched atop a cliff, offering stunning Himalayan panoramas and lush fruit orchards.', imageUrl: '/image/Mukteshwar2.jpg', dataAiHint: 'mukteshwar temple view', coordinates: { lat: 29.4722, lng: 79.6479 } },
+    { id: '9', name: 'Chakrata', description: 'A secluded hill station offering pristine natural beauty, Tiger Falls, and opportunities for trekking and exploration.', imageUrl: '/image/chakratas2.jpg', dataAiHint: 'chakrata tiger falls', coordinates: { lat: 30.7026, lng: 77.8694 } },
+    { id: '10', name: 'Pauri', description: 'A district headquarters town offering panoramic views of snow-clad Himalayan peaks like Banderpunch, Swargarohini, and Gangotri group.', imageUrl: '/image/pauri2.jpg', dataAiHint: 'pauri himalayan peaks', coordinates: { lat: 30.1498, lng: 78.7748 } },
   ];
   const location = locations.find(loc => loc.id === id);
   if (!location) {
@@ -70,7 +70,7 @@ export default async function LocationDetailPage({ params }: { params: { id: str
               objectFit="cover"
               quality={85}
               data-ai-hint={location.dataAiHint}
-              priority={true} 
+              priority={true}
             />
           </div>
 
@@ -85,16 +85,12 @@ export default async function LocationDetailPage({ params }: { params: { id: str
             <div className="space-y-6">
                <h3 className="text-2xl font-semibold text-primary border-b pb-2">Plan Your Trip</h3>
                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/rentals" passHref>
-                   <Button className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
-                      <Car className="mr-2 h-5 w-5" /> Find Rentals
+                   <Button variant="outline" className="w-full sm:w-auto">
+                      <Car className="mr-2 h-5 w-5" /> For Rentals, Call: +91 9368255528
                    </Button>
-                  </Link>
-                   <Link href="/hotels" passHref>
-                   <Button variant="outline" className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                      <Hotel className="mr-2 h-5 w-5" /> Find Hotels Nearby
+                   <Button variant="outline" className="w-full sm:w-auto">
+                      <Hotel className="mr-2 h-5 w-5" /> For Hotels, Call: +91 9368255528
                    </Button>
-                  </Link>
                </div>
             </div>
           </div>
