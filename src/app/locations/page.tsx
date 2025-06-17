@@ -9,7 +9,7 @@ import { ClientImage } from '@/components/client-image';
 // Mock data for hidden locations - replace with API data later
 // Use location names in picsum URLs for more relevance
 const hiddenLocations = [
-  { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas.', imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Khirsu_village_2.jpg', category: 'village', dataAiHint: 'khirsu village landscape', coordinates: { lat: 30.1978, lng: 78.8798 } },
+  { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas.', imageUrl: '/images/khirsuVillage.jpg', category: 'village', dataAiHint: 'khirsu village', coordinates: { lat: 30.1978, lng: 78.8798 } },
   { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and ancient temples.', imageUrl: 'https://picsum.photos/seed/chopta/400/300', category: 'trek', dataAiHint: 'chopta mountains', coordinates: { lat: 30.4851, lng: 79.3331 } },
   { id: '3', name: 'Binsar Wildlife Sanctuary', description: 'Home to diverse flora and fauna, perfect for nature lovers.', imageUrl: 'https://picsum.photos/seed/binsar/400/300', category: 'nature', dataAiHint: 'binsar wildlife', coordinates: { lat: 29.6949, lng: 79.7534 } },
   { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground.', imageUrl: 'https://picsum.photos/seed/patal/400/300', category: 'spiritual', dataAiHint: 'patal cave', coordinates: { lat: 29.7078, lng: 80.1050 } }, // Use Landmark icon
