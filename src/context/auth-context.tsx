@@ -30,7 +30,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { toast } = useToast();
 
   useEffect(() => {
+    console.log("AuthContext: useEffect mounting, setting up onAuthStateChanged.");
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      console.log("AuthContext: onAuthStateChanged fired. currentUser:", currentUser ? currentUser.uid : null);
       if (currentUser) {
         // Optionally fetch user profile from Firestore
         const userDocRef = doc(db, "users", currentUser.uid);
@@ -39,27 +41,33 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           if (userDoc.exists()) {
             // Combine auth data with Firestore profile data
             setUser({ ...currentUser, ...userDoc.data() } as FirebaseUser);
+            console.log("AuthContext: User profile found and merged for user:", currentUser.uid);
           } else {
             // No profile document yet, just set auth user
             setUser(currentUser);
-            // You could create a profile here if it's missing and should exist
-            console.log("No profile document found for user:", currentUser.uid);
+            console.log("AuthContext: No profile document found for user, using auth data for:", currentUser.uid);
           }
         } catch (error) {
-            console.error("Error fetching user profile from Firestore:", error);
+            console.error("AuthContext: Error fetching user profile from Firestore:", error);
             setUser(currentUser); // Fallback to auth user data
         }
       } else {
         setUser(null);
+        console.log("AuthContext: No current user, user set to null.");
       }
       setLoading(false);
+      console.log("AuthContext: setLoading(false) called. Current user state:", user ? user.uid : null);
     });
 
-    return () => unsubscribe(); // Cleanup subscription on unmount
-  }, []);
+    return () => {
+      console.log("AuthContext: useEffect unmounting, unsubscribing from onAuthStateChanged.");
+      unsubscribe();
+    };
+  }, []); // The dependency array is empty, so this effect runs once on mount and cleans up on unmount.
 
   const signup = async (email: string, password: string): Promise<FirebaseUser | null> => {
     setLoading(true);
+    console.log("AuthContext: signup attempt for email:", email);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       // Create a user profile document in Firestore
@@ -69,11 +77,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         createdAt: serverTimestamp(), // Use Firestore server timestamp
         // Add any other default profile fields here (e.g., displayName if collected at signup)
       });
+      console.log("AuthContext: Signup successful, user profile created for:", userCredential.user.uid);
       toast({ title: "Signup Successful", description: "Welcome to Travillo!" });
       // The onAuthStateChanged listener will pick up the new user and their profile
       return userCredential.user;
     } catch (error: any) {
-      console.error("Signup failed:", error.code, error.message);
+      console.error("AuthContext: Signup failed:", error.code, error.message);
       let friendlyMessage = "An unknown error occurred during signup.";
       if (error.code === 'auth/email-already-in-use') {
         friendlyMessage = "This email address is already in use. Please try a different email or log in.";
@@ -88,18 +97,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       throw error; // Re-throw to be caught by the calling page
     } finally {
       setLoading(false);
+      console.log("AuthContext: signup setLoading(false) called.");
     }
   };
 
   const login = async (email: string, password: string): Promise<FirebaseUser | null> => {
     setLoading(true);
+    console.log("AuthContext: login attempt for email:", email);
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("AuthContext: Login successful for:", userCredential.user.uid);
       toast({ title: "Login Successful", description: "Welcome back!" });
       // The onAuthStateChanged listener will pick up the user and their profile
       return userCredential.user;
     } catch (error: any) {
-      console.error("Login failed:", error.code, error.message);
+      console.error("AuthContext: Login failed:", error.code, error.message);
       let friendlyMessage = "Login failed. Please try again.";
       if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         friendlyMessage = "Invalid email or password. Please check your credentials and try again.";
@@ -119,22 +131,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       throw error; // Re-throw to be caught by the calling page if needed elsewhere
     } finally {
       setLoading(false);
+      console.log("AuthContext: login setLoading(false) called.");
     }
   };
 
   const logout = async () => {
     setLoading(true);
+    console.log("AuthContext: logout attempt.");
     try {
       await signOut(auth);
       deleteCookie('travillo-session', { path: '/' }); // Also delete cookie here for robustness
+      console.log("AuthContext: Logout successful.");
       toast({ title: "Logged Out", description: "You have been successfully logged out." });
       // User state will be set to null by onAuthStateChanged
     } catch (error: any) {
-      console.error("Logout failed:", error);
+      console.error("AuthContext: Logout failed:", error);
       toast({ title: "Logout Failed", description: error.message || "An error occurred during logout.", variant: "destructive" });
       throw error;
     } finally {
       setLoading(false);
+      console.log("AuthContext: logout setLoading(false) called.");
     }
   };
 
@@ -161,3 +177,4 @@ export const useAuth = (): AuthContextType => {
   }
   return context;
 };
+
