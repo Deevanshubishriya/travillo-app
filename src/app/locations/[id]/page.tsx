@@ -70,6 +70,7 @@ export default async function LocationDetailPage({ params }: { params: { id: str
               objectFit="cover"
               quality={85}
               data-ai-hint={location.dataAiHint}
+              priority={true} // Added priority prop
             />
           </div>
 
