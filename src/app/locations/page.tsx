@@ -49,15 +49,15 @@ const getCategoryIcon = (category: string) => {
 export default function LocationsPage() {
   return (
 
-     <div className="container py-12 md:py-16">
+     <div className="container py-8 md:py-12"> {/* Adjusted padding for mobile */}
        <h1 className="mb-8 text-center text-4xl font-bold text-primary">Explore Hidden Locations</h1>
        <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
          Discover lesser-known treasures with Travillo. From tranquil villages to challenging treks, find your next adventure.
        </p>
 
-       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> {/* Added xl:grid-cols-4 for better layout */}
+       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> {/* Grid already responsive */}
          {hiddenLocations.map((location) => (
-           <Card key={location.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02]">
+           <Card key={location.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] flex flex-col"> {/* Added flex flex-col for consistent card height */}
              <CardHeader className="p-0">
                <div className="relative h-48 w-full">
                  {/* Use ClientImage wrapper */}
@@ -71,18 +71,18 @@ export default function LocationsPage() {
                  />
                </div>
              </CardHeader>
-             <CardContent className="p-4">
-               <CardTitle className="mb-2 text-xl text-primary flex items-center">
+             <CardContent className="p-4 flex-grow"> {/* Added flex-grow */}
+               <CardTitle className="mb-2 text-lg font-semibold text-primary flex items-center"> {/* Adjusted font size for mobile */}
                   {getCategoryIcon(location.category)} {location.name}
                </CardTitle>
-               <CardDescription className="text-muted-foreground">
+               <CardDescription className="text-sm text-muted-foreground"> {/* Adjusted font size for mobile */}
                  {location.description}
                </CardDescription>
              </CardContent>
              <CardFooter className="p-4 pt-0">
                {/* Link to a potential location detail page */}
                <Link href={`/locations/${location.id}`} passHref>
-                  <Button variant="outline" size="sm" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
+                  <Button variant="outline" size="sm" className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"> {/* Made button full width on mobile */}
                    Learn More
                  </Button>
                </Link>

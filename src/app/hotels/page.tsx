@@ -83,7 +83,7 @@ export default function HotelsPage() {
 
 
   return (
-    <div className="container py-12 md:py-16">
+    <div className="container py-8 md:py-16 px-4">
       <h1 className="mb-8 text-center text-4xl font-bold text-primary">Find Hotels Nearby</h1>
       <p className="mb-12 text-center text-lg text-muted-foreground max-w-2xl mx-auto">
         Enter a location name (e.g., village, city, landmark) to discover hotels near hidden gems and get suggestions for booking sites.

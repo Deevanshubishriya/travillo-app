@@ -49,7 +49,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="container flex min-h-[calc(100vh-theme(spacing.14))] items-center justify-center py-12">
+    <div className="flex min-h-[calc(100vh-theme(spacing.14))] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold text-primary">Welcome Back!</CardTitle>

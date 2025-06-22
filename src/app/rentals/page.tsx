@@ -108,7 +108,7 @@ export default function RentalsPage() {
           <CardDescription>Fill in the details below to find available cars.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSearch} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 items-end">
+          <form onSubmit={handleSearch} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 items-end"> {/* Increased gap for better mobile spacing */}
             <div className="space-y-1">
               <Label htmlFor="pickupLocation">Pick-up Location</Label>
               <Input
@@ -218,7 +218,7 @@ export default function RentalsPage() {
         ) : searchAttempted && availableVehicles.length === 0 ? (
           <p className="text-center text-muted-foreground">No vehicles found matching your criteria. Try different locations, dates, or traveler numbers.</p>
         ) : availableVehicles.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"> {/* Added xl:grid-cols-4 for larger screens, existing sm:grid-cols-2 works for tablets, grid-cols-1 for mobile */}
             {availableVehicles.map((vehicle) => (
               <Card key={vehicle.id} className="overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] flex flex-col">
                 <CardHeader className="p-0">

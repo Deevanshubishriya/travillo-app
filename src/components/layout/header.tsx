@@ -1,7 +1,7 @@
 
 'use client';
 
-import Link from 'next/link';
+import Link, { LinkProps } from 'next/link';
 import { Mountain, Search as SearchIcon, LogOut, User, UserPlus as UserPlusIcon } from 'lucide-react';
 import { NavLink } from './nav-link';
 import { ThemeToggleButton } from '@/components/theme-toggle-button';
@@ -9,11 +9,12 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { MenuIcon, XIcon } from 'lucide-react'; // Import icons for mobile menu
 import { useAuth } from '@/context/auth-context'; // Import useAuth
-// import { deleteCookie } from 'cookies-next'; // No longer needed here as AuthContext handles it
 
 export function Header() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu
   const router = useRouter();
   const { user, logout, loading } = useAuth(); // Get user and logout function
 
@@ -23,6 +24,10 @@ export function Header() {
       router.push(`/locations?search=${encodeURIComponent(searchQuery.trim())}`);
       // setSearchQuery(''); // Optionally clear search after submission
     }
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const handleLogout = async () => {
