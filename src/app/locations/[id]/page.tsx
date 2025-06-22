@@ -12,7 +12,7 @@ async function getLocationDetails(id: string) {
   await new Promise(resolve => setTimeout(resolve, 100));
 
   const locations = [
-    { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: '/images/khirsuVillage.jpg', dataAiHint: 'Khirsu village serene himalayas', coordinates: { lat: 30.1978, lng: 78.8798 } },
+    { id: '1', name: 'Khirsu Village', description: 'A serene hill station offering panoramic views of the Himalayas. Perfect for a peaceful getaway, surrounded by oak and deodar forests. Enjoy nature walks and bird watching.', imageUrl: '/image/khirsuVillage.jpg', dataAiHint: 'Khirsu village serene himalayas', coordinates: { lat: 30.1978, lng: 78.8798 } },
     { id: '2', name: 'Chopta Tungnath Trek', description: 'Known as "Mini Switzerland", offering breathtaking meadows and the highest Shiva temple in the world. A moderate trek suitable for most fitness levels.', imageUrl: '/image/Chopta-Tungnath2.jpg', dataAiHint: 'chopta trek', coordinates: { lat: 30.4851, lng: 79.3331 } },
     { id: '3', name: 'Binsar Wildlife Sanctuary', description: 'Home to diverse flora and fauna, perfect for nature lovers exploring dense forests and spotting wildlife.', imageUrl: '/image/binsar-wildlife-sanctuary2.jpg', dataAiHint: 'binsar sanctuary', coordinates: { lat: 29.6949, lng: 79.7534 } },
     { id: '4', name: 'Patal Bhuvaneshwar', description: 'A mystical limestone cave temple complex deep underground, showcasing unique geological formations.', imageUrl: '/image/patal-bhavanashavara2.jpg', dataAiHint: 'patal cave temple', coordinates: { lat: 29.7078, lng: 80.1050 } },

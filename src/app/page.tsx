@@ -23,7 +23,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[400px] w-full">
         <ClientImage
-          src="https://picsum.photos/1920/1080?random=hero"
+          src="/image/bg.jpg"
           alt="Scenic view of travel destinations"
           layout="fill"
           objectFit="cover"
